@@ -45,13 +45,19 @@
         .btn:hover {
             background-color: #003458;
         }
+        .results {
+            margin-top: 20px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Will This Fit in My Car?</h1>
         <p>Check if your IKEA products will fit in your car!</p>
-        <button class="btn">Start Now</button>
+        <button class="btn" onclick="checkFit()">Start Now</button>
+        <div class="results" id="results"></div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
