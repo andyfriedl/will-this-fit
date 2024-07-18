@@ -1,3 +1,5 @@
+// JavaScript code moved to scripts.js
+
 class Box {
     constructor(product_id, product_name, width, height, depth, weight) {
         this.product_id = product_id;
@@ -80,32 +82,13 @@ function can_pack_all_boxes_with_hangout(boxes, vehicle) {
 }
 
 function can_pack_all_boxes_mixed(boxes, vehicle) {
-    boxes.sort((a, b) => b.volume - a.volume);
-    const packed_boxes = [];
-    const unpacked_boxes = [];
+    const [packed_boxes, unpacked_boxes] = can_pack_all_boxes(boxes, vehicle);
+    const [packed_boxes_with_hangout, boxes_that_wont_fit] = can_pack_all_boxes_with_hangout(
+        unpacked_boxes.map(id => boxes.find(b => b.product_id === id)),
+        vehicle
+    );
 
-    for (let box of boxes) {
-        if (vehicle.can_fit(box)) {
-            vehicle.add(box);
-            packed_boxes.push(box.product_id);
-        } else {
-            unpacked_boxes.push(box);
-        }
-    }
-
-    const packed_boxes_with_hangout = [];
-    const unpacked_boxes_with_hangout = [];
-
-    for (let box of unpacked_boxes) {
-        if (vehicle.can_fit_with_hangout(box)) {
-            vehicle.add(box);
-            packed_boxes_with_hangout.push(box.product_id);
-        } else {
-            unpacked_boxes_with_hangout.push(box.product_id);
-        }
-    }
-
-    return [packed_boxes, packed_boxes_with_hangout, unpacked_boxes_with_hangout];
+    return [packed_boxes, packed_boxes_with_hangout, boxes_that_wont_fit];
 }
 
 function checkFit() {
@@ -154,3 +137,26 @@ function checkFit() {
 
     document.getElementById("results").innerHTML = results;
 }
+
+// Random boxes generation
+const colors = ['#a1caba', '#e9ba08', '#ad2e00', '#e95d2e', '#e9c79d', '#232829'];
+const container = document.body;
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+for (let i = 0; i < 20; i++) {
+    const box = document.createElement('div');
+    box.className = 'random-box';
+    box.style.backgroundColor = colors[getRandomInt(colors.length)];
+    box.style.top = getRandomInt(window.innerHeight - 100) + 'px'; // Constrains the divs within the viewport
+    box.style.left = getRandomInt(window.innerWidth - 100) + 'px'; // Constrains the divs within the viewport
+    box.style.width = getRandomInt(100) + 40 + 'px';
+    box.style.height = getRandomInt(100) + 280 + 'px';
+    box.style.transform = `rotate(${getRandomInt(360)}deg)`;
+    container.appendChild(box);
+}
+
+// Event listener for the button
+document.getElementById('startButton').addEventListener('click', checkFit);
