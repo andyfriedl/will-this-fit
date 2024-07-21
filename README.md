@@ -5,7 +5,7 @@
 
 Check if packages or boxes will fit in you car. The ultimate goal is to have a database of Ikea  packed product dimensions and a database of vehicle cargo area dimensions so that you can check the purchase products will fit inside, fit but hang out of the back or will not fit.
 
-Current Progres found [here on GitHub Pages]([https://pages.github.com/](https://andyfriedl.github.io/will-this-fit/))
+Current Progres found [here on GitHub Pages](https://andyfriedl.github.io/will-this-fit/)
 
 
 - If the the box width, height and depth fit in the cargo area it is added to Fits and get subtracted from the remaining cargo area.
