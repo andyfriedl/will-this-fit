@@ -1,5 +1,3 @@
-// JavaScript code moved to scripts.js
-
 class Box {
     constructor(product_id, product_name, width, height, depth, weight) {
         this.product_id = product_id;
@@ -92,6 +90,7 @@ function can_pack_all_boxes_mixed(boxes, vehicle) {
 }
 
 function checkFit() {
+    const selectedProducts = document.querySelectorAll("#selectedProducts li");
     const boxes = [
         new Box(66666666, "test", 50.25, 2.75, 41.25, 25.5),
         new Box(60470408, "NYSJÖN", 20.25, 2.75, 31.25, 25.5),
@@ -101,11 +100,16 @@ function checkFit() {
         new Box(20470047, "TIPHEDE", 16.75, 3.5, 18.75, 6)
     ];
 
-    const vehicle = new Vehicle("Jeep", "Wrangler Unlimited", 2010, 40.25, 35.5, 34.5);
+   
+    const selectedBoxIds = Array.from(selectedProducts).map(item => {
+        return parseInt(item.dataset.boxId);
+    });
 
-    const [packed_boxes, packed_boxes_with_hangout, boxes_that_wont_fit] = can_pack_all_boxes_mixed(boxes, vehicle);
+    const selectedBoxes = boxes.filter(box => selectedBoxIds.includes(box.product_id));
 
-    let results = `<h2>Will this fit in your car - ${vehicle.year} ${vehicle.make} ${vehicle.model}</h2>`;
+    const [packed_boxes, packed_boxes_with_hangout, boxes_that_wont_fit] = can_pack_all_boxes_mixed(selectedBoxes, vehicle);
+
+    let results = `<h2>Will this fit in your <u> ${vehicle.year} ${vehicle.make} ${vehicle.model}</u> - TEST DATA</h2>`;
 
     if (packed_boxes.length) {
         results += `<p>📦 These boxes will fit inside your ${vehicle.make}:</p><ul>`;
@@ -138,8 +142,117 @@ function checkFit() {
     document.getElementById("results").innerHTML = results;
 }
 
-// Random boxes generation
-const colors = ['#a1caba', '#e9ba08', '#ad2e00', '#e95d2e', '#e9c79d', '#232829'];
+// Vehicle data
+const vehicles = [
+    { year: 2010, make: "Jeep", model: "Wrangler Unlimited", cargo_width: 40.25, cargo_height: 35.5, cargo_depth: 34.5 },
+    { year: 2014, make: "Subaru", model: "Crosstrek", cargo_width: 28.5, cargo_height: 24.1, cargo_depth: 25.8 },
+    { year: 2014, make: "Dodge", model: "Dart", cargo_width: 33.5, cargo_height: 36.1, cargo_depth: 30.8 },
+    { year: 2019, make: "Jeep", model: "Grand Cherokee", cargo_width: 34.5, cargo_height: 22.1, cargo_depth: 29.8 }
+];
+
+// Populate vehicle options
+function populateVehicleOptions() {
+    const yearSelect = document.getElementById("year-select");
+    const makeSelect = document.getElementById("make-select");
+    const modelSelect = document.getElementById("model-select");
+
+    // Populate years
+    const years = [...new Set(vehicles.map(v => v.year))];
+    yearSelect.innerHTML = '<option value="" disabled selected>Select year</option>';
+    years.forEach(year => {
+        yearSelect.innerHTML += `<option value="${year}">${year}</option>`;
+    });
+
+    // Event listener for year selection
+    yearSelect.addEventListener('change', () => {
+        const selectedYear = yearSelect.value;
+        const makes = [...new Set(vehicles.filter(v => v.year == selectedYear).map(v => v.make))];
+        makeSelect.innerHTML = '<option value="" disabled selected>Select make</option>';
+        makes.forEach(make => {
+            makeSelect.innerHTML += `<option value="${make}">${make}</option>`;
+        });
+        makeSelect.disabled = false;
+        modelSelect.innerHTML = '<option value="" disabled selected>Select model</option>';
+        modelSelect.disabled = true;
+    });
+
+    // Event listener for make selection
+    makeSelect.addEventListener('change', () => {
+        const selectedYear = yearSelect.value;
+        const selectedMake = makeSelect.value;
+        const models = vehicles.filter(v => v.year == selectedYear && v.make == selectedMake).map(v => v.model);
+        modelSelect.innerHTML = '<option value="" disabled selected>Select model</option>';
+        models.forEach(model => {
+            modelSelect.innerHTML += `<option value="${model}">${model}</option>`;
+        });
+        modelSelect.disabled = false;
+    });
+}
+
+populateVehicleOptions();
+
+// Product search and results
+const boxes = [
+    new Box(66666666, "test", 50.25, 2.75, 41.25, 25.5),
+    new Box(60470408, "NYSJÖN", 20.25, 2.75, 31.25, 25.5),
+    new Box(20400323, "SALJEN", 10.75, 2, 11.25, 1),
+    new Box(50311066, "FRIHETEN", 32.75, 16.5, 55, 78),
+    new Box(40104294, "LACK", 25.25, 2.5, 35.75, 18),
+    new Box(20470047, "TIPHEDE", 16.75, 3.5, 18.75, 6)
+];
+
+function populateProductSearchResults(query) {
+    const resultsDiv = document.getElementById("productSearchResults");
+    resultsDiv.innerHTML = '';
+
+    if (!query) {
+        return;
+    }
+
+    const filteredBoxes = boxes.filter(box => box.product_name.toLowerCase().includes(query.toLowerCase()));
+
+    if (filteredBoxes.length === 0) {
+        resultsDiv.innerHTML = '<div>No products found</div>';
+        return;
+    }
+
+    filteredBoxes.forEach(box => {
+        const div = document.createElement("div");
+        div.textContent = `${box.product_name} (${box.product_id})`;
+        div.className = 'search-result-item';
+        div.dataset.boxId = box.product_id;
+        div.addEventListener("click", () => {
+            addProduct(box);
+            resultsDiv.innerHTML = ''; // Clear results after selection
+            document.getElementById("searchProductInput").value = ''; // Clear input field
+        });
+        resultsDiv.appendChild(div);
+    });
+}
+
+function addProduct(box) {
+    const selectedProducts = document.getElementById("selectedProducts");
+
+    const item = document.createElement("li");
+    item.textContent = `${box.product_name} (${box.product_id})`;
+    item.dataset.boxId = box.product_id;
+    item.classList.add('product-search-item');
+
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", () => {
+        selectedProducts.removeChild(item);
+    });
+    item.appendChild(removeButton);
+    selectedProducts.appendChild(item);
+}
+
+document.getElementById("productSearch").addEventListener("input", (event) => {
+    populateProductSearchResults(event.target.value);
+});
+
+// Random background boxes generation
+const colors = ['#a1caba', '#e9ba08', '#ad2e00', '#e95d2e', '#e9c79d', '#232829']; // E9E9E8
 const container = document.body;
 
 function getRandomInt(max) {
@@ -150,11 +263,11 @@ for (let i = 0; i < 20; i++) {
     const box = document.createElement('div');
     box.className = 'random-box';
     box.style.backgroundColor = colors[getRandomInt(colors.length)];
-    box.style.top = getRandomInt(window.innerHeight - 100) + 'px'; // Constrains the divs within the viewport
-    box.style.left = getRandomInt(window.innerWidth - 100) + 'px'; // Constrains the divs within the viewport
-    box.style.width = getRandomInt(100) + 40 + 'px';
-    box.style.height = getRandomInt(100) + 280 + 'px';
-    box.style.transform = `rotate(${getRandomInt(360)}deg)`;
+    box.style.top = getRandomInt(window.innerHeight - 222) + 'px'; // Constrains the divs within the viewport
+    box.style.left = getRandomInt(window.innerWidth - 222) + 'px'; // Constrains the divs within the viewport
+    box.style.width = getRandomInt(150) + 15 + 'px';
+    box.style.height = getRandomInt(333) + 55 + 'px';
+    box.style.transform = `rotate(${getRandomInt(6) + 87}deg)`;
     container.appendChild(box);
 }
 
