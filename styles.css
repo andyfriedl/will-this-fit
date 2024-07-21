@@ -1,0 +1,168 @@
+:root {
+    --primary-color: #4CAF50; /* var(--primary-color) */
+    --secondary-color: #ccc;
+    --off-white: #f3f3e7;
+    --border-radius: 5px; 
+    }
+    .stretched-text {
+        letter-spacing: 2px;
+        transform: scaleX(.8);
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f3e7;
+        color: #333333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        /* overflow: hidden; */
+        position: relative;
+    }
+
+    .container {
+        text-align: center;
+        padding: 20px;
+        background-color: #d3cdb4;
+        position: relative;
+        z-index: 1;
+    }
+
+    .random-box {
+        position: absolute;
+        opacity: 0.9;
+    }
+
+    h1 {
+        color: #333333;
+        font-size: 4em;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        font-stretch: ultra-condensed;
+    }
+
+    p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        background-color: #e95d2e;
+        color: #FFFFFF;
+        padding: 10px 20px;
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #A0CABA;
+    }
+
+    .car-image {
+        width: 80%;
+        max-width: 600px;
+        margin: 20px auto;
+        display: block;
+    }
+
+    .search-container {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .search-container input {
+        width: calc(100% - 110px);
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .search-container button {
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .search-results {
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+        background-color: #fff;
+        position: absolute;
+        width: calc(100% - 110px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 2;
+    }
+
+    .search-results div {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .search-results div:hover {
+        background-color: #f0f0f0;
+    }
+
+    #selectedProducts {
+        list-style: none;
+        padding: 0;
+    }
+
+    #selectedProducts li {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .product-search-item {
+        background-color: rgba(243, 243, 231,0.5);
+    }
+
+    #results {
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    input[type="text"] {
+        /* width: 300px; */
+        padding: 15px 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 18px;
+        outline: none;
+        background-color: var(--off-white);
+        transition: border-color 0.2s ease-in-out;
+    }
+
+    input[type="text"]:focus {
+        border-color: #3fabaf;
+    }
+
+    input[type="text"], select, button {
+        /* width: 200px; */
+        padding: 10px;
+        border: 1px solid var(--off-white);
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+        outline: none;
+    }
+
+    select {
+        background-color: var(--off-white);
+    }
+
+    button {
+        background-color: #232829;
+        color: white;
+        cursor: pointer;
+    }
