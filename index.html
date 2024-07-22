@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WILL THIS FIT IN MY CAR</title>
-    <link rel="stylesheet" href="mystyle.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
 </head>
 
 <body>
@@ -14,31 +16,40 @@
         <h1 class="stretched-text">Will This Fit in My Car</h1>
         <img src="car.png" alt="Car Image" class="car-image">
         <p><b>Check if your IKEA products boxes will fit in your car before you check out!</b></p>
-        
+
         <!-- Step 1: Pick your car -->
         <h2>Step 1. Pick your car</h2>
-        <div class="search-container">
-            <select id="year-select"></select>
-            <select id="make-select" disabled></select>
-            <select id="model-select" disabled></select>
+
+
+        <div class="picker-container">
+            <h3>Select Your Vehicle</h3>
+            <div class="vehicle-selector">
+                <select id="make" onchange="updateModels()">
+                    <option value="">Select Make</option>
+                </select>
+                <select id="model">
+                    <option value="">Select Model</option>
+                </select>
+                <input type="number" id="year" placeholder="Enter Year" onchange="updateDimensions()">
+            </div>
+
+            <h4 class="dimensions" id="dimensions"></h4>
+            <div class="error" id="error"></div>
         </div>
 
         <!-- Step 2: Pick your products -->
-        <h2>Step 2. Pick your products</h2>
+        <h3>Step 2. Pick your products</h3>
         <div class="search-container">
             <input type="text" class="input-box" id="productSearch" placeholder="Search for your products...">
             <button class="btn" id="searchProductButton">Search</button>
             <div id="productSearchResults" class="search-results"></div>
+            <!-- <input type="text" id="productSearch" placeholder="Search Products">
+            <div id="productSearchResults"></div>
+            <ul id="selectedProducts"></ul> -->
         </div>
         <ul id="selectedProducts"></ul>
-
-        <!-- Step 3: Check the fit -->
-        <h2>Step 3. Check the fit</h2>
-        <button class="btn" id="startButton">Check Fit</button>
-        <div id="results"></div>
-    </div>
-    <!-- <script src="script.js"></script> -->
-    <script src="script.js"></script>
+        <!-- <script src="script.js"></script> -->
+        <script src="script.js"></script>
 </body>
 
 </html>

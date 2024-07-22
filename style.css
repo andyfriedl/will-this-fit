@@ -69,18 +69,31 @@
         display: block;
     }
 
-    .search-container {
+    /* vehicle-selector ------------------------------ */
+    .vehicle-selector {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px; /* Adjust the gap as needed */
+      }
+      
+      .vehicle-selector select,
+      .vehicle-selector input {
+        flex: 1;
+      }
+    
+    /* Search */
+    /* .search-container {
         position: relative;
         margin-bottom: 20px;
-    }
+    } */
 
-    .search-container input {
+    /* .search-container input {
         width: calc(100% - 110px);
         padding: 10px;
         margin-right: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
-    }
+    } */
 
     .search-container button {
         padding: 10px;
@@ -124,6 +137,11 @@
     }
     .product-search-item {
         background-color: rgba(243, 243, 231,0.5);
+    }
+
+    .product-search-item button{
+        background-color: #AD2E00;
+        font-size: 12px;
     }
 
     #results {
