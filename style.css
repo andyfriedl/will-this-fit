@@ -106,6 +106,17 @@ p {
     flex: 1;
 }
 
+#year {
+    padding: 15px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+    /* color: var(--text-color); */
+    background-color: var(--input-bg);
+}
+
 /* Search */
 .search-container {
     position: relative;
