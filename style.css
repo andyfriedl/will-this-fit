@@ -1,8 +1,8 @@
 :root {
-    --primary-color: #007BFF; /* Bright blue */
+    --primary-color: #A0CABA; /* Bright blue */
     --secondary-color: #6C757D;  /* Medium gray */
     --body-bg: #F8F9FA;     /* Very light gray */
-    --container-bg: #E9ECEF;  /* Light gray */
+    --container-bg: #cbd2d9;  /* Light gray */
     --border-color: #DEE2E6;  /* Light gray */
     --text-color: #343A40;    /* Dark gray */
     --input-bg: #FFFFFF; /* White */
@@ -115,6 +115,11 @@ p {
     outline: none;
     /* color: var(--text-color); */
     background-color: var(--input-bg);
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
 /* Search */
@@ -170,8 +175,9 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 75%; /* Adjusted width */
+    width: 30%; /* Adjusted width */
     margin: 0 auto; /* Center the list items */
+    border-radius: 4px;
 }
 
 .product-search-item {
@@ -206,7 +212,7 @@ input[type="text"]:focus {
 
 input[type="text"], select, button {
     padding: 10px;
-    border: 1px solid var(--input-bg);
+    border: 1px solid var(--primary-color);
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
