@@ -144,14 +144,15 @@ p {
 }
 
 .search-results {
-    border: 1px solid var(--border-color);
+    /* border: 1px solid var(--border-color); */
     max-height: 150px;
     overflow-y: auto;
     background-color: #fff;
     position: absolute;
-    width: calc(100% - 110px);
+    width: calc(100% - 113px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 2;
+    margin-left: 52px;
 }
 
 .search-results div {
