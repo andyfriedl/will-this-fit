@@ -4,13 +4,17 @@
     --body-bg: #F8F9FA;     /* Very light gray */
     --container-bg: #cbd2d9;  /* Light gray */
     --border-color: #DEE2E6;  /* Light gray */
-    --text-color: #343A40;    /* Dark gray */
+    --text-color: #051012;    /* Dark gray */
     --input-bg: #FFFFFF; /* White */
     --btn-background: #28A745; /* Green */
     --btn-hover: #218838;      /* Darker green */
     --btn-remove: #DC3545;    /* Red */
     --focus-color: #80BDFF;   /* Light blue */
     --search-result-bg: #FFFFFF; /* White */
+    --color-1: #051012;
+    --color-2: #E95D2E;
+    --color-3: #E9E9E9;
+    --color-4: #A0CABA;
 }
 
 
@@ -33,9 +37,21 @@ input, button, textarea, select {
     transform: scaleX(.8);
 }
 
+.fancy {
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+      background-image: 
+        url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23AD2E00' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%23333333'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23E95D2E'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23E8BA07'/%3E%3C/g%3E%3C/svg%3E%0A");
+      background-size: 110% auto;
+      background-position: center;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+  }
+
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--body-bg);
+    /* background-color: var(--body-bg); */
     color: var(--text-color);
     display: flex;
     justify-content: center;
@@ -43,6 +59,20 @@ body {
     height: 100vh;
     margin: 0;
     position: relative;
+    background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%, var(--color-4) 100%);
+}
+
+/* Cloud */
+
+hr.style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    width: 40%;
+    box-shadow: 0 0 20px 1px black;
+    margin-top: -15px;
+}
+hr.style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
 }
 
 .container {
@@ -64,9 +94,16 @@ h1 {
     color: var(--text-color);
     font-size: 4em;
     margin-bottom: 20px;
-    text-transform: uppercase;
-    font-stretch: ultra-condensed;
+    /* text-transform: uppercase;
+    font-stretch: ultra-condensed; */
+    font-size: 13vmin;
 }
+
+.abril-fatface-regular {
+    font-family: "Abril Fatface", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 
 p {
     font-size: 1.2em;

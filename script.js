@@ -185,7 +185,7 @@ function populateProductSearchResults(query) {
     const existingItem = Array.from(selectedProducts.children).find(item => item.dataset.boxId === box.product_id);
   
     if (existingItem) {
-      // If product exists, increment quantity
+      // If product exists, increment quantity ----- not working
       const currentQuantity = parseInt(existingItem.dataset.quantity);
       const newQuantity = currentQuantity + 1;
       existingItem.dataset.quantity = newQuantity;
