@@ -17,20 +17,15 @@
     --color-4: #A0CABA;
 }
 
-
-/*
-  6. Remove built-in form typography styles
-*/
+/* Remove built-in form typography styles */
 input, button, textarea, select {
     font: inherit;
-  }
-    
-  /*
-    7. Avoid text overflows
-  */
-  p, h1, h2, h3, h4, h5, h6 {
+}
+
+/* Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
-  }
+}
 
 .stretched-text {
     letter-spacing: 2px;
@@ -40,50 +35,52 @@ input, button, textarea, select {
 .fancy {
     @supports (background-clip: text) or (-webkit-background-clip: text) {
       background-image: 
-        url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23AD2E00' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%23333333'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23E95D2E'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23E8BA07'/%3E%3C/g%3E%3C/svg%3E%0A");
+        url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23AD2E00' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%23333333'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23E95D2E'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23c69d07'/%3E%3C/g%3E%3C/svg%3E%0A");
       background-size: 110% auto;
       background-position: center;
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
     }
-  }
+}
 
 body {
     font-family: Arial, sans-serif;
-    /* background-color: var(--body-bg); */
     color: var(--text-color);
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Changed to flex-start to align items to the top */
+    align-items: flex-start;
     height: 100vh;
     margin: 0;
     position: relative;
     background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%, var(--color-4) 100%);
 }
 
-/* Cloud */
-
-hr.style-five {
-    border: 0;
-    height: 0; /* Firefox... */
-    width: 40%;
-    box-shadow: 0 0 20px 1px black;
-    margin-top: -15px;
-}
-hr.style-five:after {  /* Not really supposed to work, but does */
-    content: "\00a0";  /* Prevent margin collapse */
-}
-
 .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     padding: 20px;
     background-color: var(--container-bg);
     position: absolute;
-    top: 20px; /* Adjust as needed */
+    top: 20px;
     z-index: 1;
-    width: 80%; /* Adjust as needed */
+    width: 80%;
 }
+
+.vehicle-selector, .search-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.vehicle-selector select, .vehicle-selector input {
+    flex: 1;
+    min-width: 0;
+}
+
 
 .random-box {
     position: absolute;
@@ -94,8 +91,6 @@ h1 {
     color: var(--text-color);
     font-size: 4em;
     margin-bottom: 20px;
-    /* text-transform: uppercase;
-    font-stretch: ultra-condensed; */
     font-size: 13vmin;
 }
 
@@ -103,7 +98,7 @@ h1 {
     font-family: "Abril Fatface", serif;
     font-weight: 400;
     font-style: normal;
-  }
+}
 
 p {
     font-size: 1.2em;
@@ -131,18 +126,6 @@ p {
     display: block;
 }
 
-/* vehicle-selector ------------------------------ */
-.vehicle-selector {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px; /* Adjust the gap as needed */
-}
-
-.vehicle-selector select,
-.vehicle-selector input {
-    flex: 1;
-}
-
 #year {
     padding: 15px 20px;
     border: 2px solid var(--border-color);
@@ -150,7 +133,6 @@ p {
     box-sizing: border-box;
     font-size: 16px;
     outline: none;
-    /* color: var(--text-color); */
     background-color: var(--input-bg);
     padding: 10px;
     border: 1px solid var(--primary-color);
@@ -159,37 +141,32 @@ p {
     font-size: 16px;
 }
 
-/* Search */
 .search-container {
     position: relative;
+    width: 100%;
     margin-bottom: 20px;
 }
 
 .search-container input {
-    width: calc(100% - 110px);
+    /* width: calc(100% - 20px); */
+    width: 100%;
     padding: 10px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     border: 1px solid var(--border-color);
     border-radius: 4px;
 }
 
-.search-container button {
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 .search-results {
-    /* border: 1px solid var(--border-color); */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
     max-height: 150px;
     overflow-y: auto;
-    background-color: #fff;
-    position: absolute;
-    width: calc(100% - 113px);
+    background-color: var(--search-result-bg);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 2;
-    margin-left: 52px;
+    border: 1px solid var(--border-color);
 }
 
 .search-results div {
@@ -204,6 +181,7 @@ p {
 #selectedProducts {
     list-style: none;
     padding: 0;
+    width: 100%;
 }
 
 #selectedProducts li {
@@ -213,7 +191,8 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 30%; /* Adjusted width */
+    width: 100%;
+    box-sizing: border-box;
     margin: 0 auto; /* Center the list items */
     border-radius: 4px;
 }

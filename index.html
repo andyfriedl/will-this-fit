@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,52 +7,37 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <!-- <div class="random-box" style="background: linear-gradient(90deg, #E8BA07 0%, #E8BA07 25%, #fd5825 25%, #fd5825 50%, #f7efe5 50%, #f7efe5 75%, #3fabaf 75%, #3fabaf 100%); width: 100%; height: 100%; z-index: 0;"></div> -->
     <div class="container">
         <h1 class="abril-fatface-regular fancy">Will This Fit in My Car</h1>
         <p class="abril-fatface-regular"><b>Check if your IKEA products boxes will fit in your car before you check out!</b></p>
-
         <img src="car.png" alt="Car Image" class="car-image">
-        <hr class="style-five">
-        <!-- Step 1: Pick your car -->
-        <h2>Step 1. Select your vehicle:</h2>
+        <h2 class="abril-fatface-regular">Step 1. Select your vehicle:</h2>
+        <div class="vehicle-selector">
+            <select id="make" onchange="updateModels()">
+                <option value="">Select Make</option>
+            </select>
+            <select id="model">
+                <option value="">Select Model</option>
+            </select>
+            <input type="number" id="year" placeholder="Enter Year and press enter" onchange="updateDimensions()">
+            <button class="btn" id="year-submit" onclick="simulateEnterKey()">Submit</button>
 
-
-        <div class="picker-container">
-            <div class="vehicle-selector">
-                <select id="make" onchange="updateModels()">
-                    <option value="">Select Make</option>
-                </select>
-                <select id="model">
-                    <option value="">Select Model</option>
-                </select>
-                <input type="number" id="year" placeholder="Enter Year and press enter" onchange="updateDimensions()">
-            </div>
-
-            <h4 class="dimensions" id="dimensions"></h4>
-            <div class="error" id="error"></div>
         </div>
-
-        <!-- Step 2: Pick your products -->
-        <h2>Step 2. Search for a product:</h2>
+        <h4 class="dimensions" id="dimensions"></h4>
+        <div class="error" id="error"></div>
+        <h2 class="abril-fatface-regular">Step 2. Search for a product:</h2>
         <div class="search-container">
             <input type="text" class="input-box" id="productSearch" placeholder="Start typing to see results...">
-            <!-- <button class="btn" id="searchProductButton">Search</button> -->
             <div id="productSearchResults" class="search-results"></div>
-            <!-- <input type="text" id="productSearch" placeholder="Search Products">
-            <div id="productSearchResults"></div>
-            <ul id="selectedProducts"></ul> -->
         </div>
-        <h2> Step 3. Check if your results fit in you car</h2> <button class="btn" id="check-fit">Check Fit</button>
+        <!-- <h2 class="abril-fatface-regular">Step 3. Check if your results fit in your car</h2>
+        <button class="btn" id="check-fit">Check Fit</button> -->
         <ul id="selectedProducts"></ul>
-        <!-- <script src="script.js"></script> -->
-        <script src="script.js"></script>
+    </div>
+    <script src="script.js"></script>
 </body>
-
 </html>
