@@ -52,7 +52,7 @@ body {
     position: relative;
     /* background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%, var(--color-4) 100%); */
 }
-.random-box {position : absolute; opacity: .3}
+/* .random-box {position : absolute; opacity: .3} */
 
 .container {
     display: flex;
@@ -63,10 +63,12 @@ body {
     background-color: var(--container-bg);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: absolute;
-    top: 20px;
+    /* top: 20px; */
     z-index: 1;
     width: 80%;
     opacity: .98;
+    border-radius: 5px;
+
 }
 
 .content {
@@ -113,6 +115,7 @@ h1 {
     color: var(--text-color);
     font-size: 7em;
     margin-bottom: 20px;
+    margin-top: -20px;
 }
 
 .abril-fatface-regular {

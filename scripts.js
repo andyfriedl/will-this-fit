@@ -200,7 +200,7 @@ function populateProductSearchResults(query) {
       item.classList.add("product-search-item");
   
       const removeButton = document.createElement("button");
-      removeButton.textContent = "REMOVE";
+      removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
       removeButton.addEventListener("click", () => {
         selectedProducts.removeChild(item);
       });
@@ -219,22 +219,29 @@ document.getElementById("productSearch").addEventListener("input", (event) => {
 });
 
 
+const select = document.getElementById('make');
+select.addEventListener('change', function() {
+  const selectedOption = select.options[select.selectedIndex];
+  const iconClass = selectedOption.dataset.icon;
+  // Replace placeholder with the icon based on iconClass
+});
+
 // Random background boxes generation
-const colors = ['#a1caba', '#e9ba08', '#ad2e00', '#e95d2e', '#d3a708', '#232829']; // E9E9E8
-const container = document.body;
+// const colors = ['#a1caba', '#e9ba08', '#ad2e00', '#e95d2e', '#d3a708', '#232829']; // E9E9E8
+// const container = document.body;
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
+// function getRandomInt(max) {
+//     return Math.floor(Math.random() * max);
+// }
 
-for (let i = 0; i < 20; i++) {
-    const box = document.createElement('div');
-    box.className = 'random-box';
-    box.style.backgroundColor = colors[getRandomInt(colors.length)];
-    box.style.top = getRandomInt(window.innerHeight - 222) + 'px'; // Constrains the divs within the viewport
-    box.style.left = getRandomInt(window.innerWidth - 222) + 'px'; // Constrains the divs within the viewport
-    box.style.width = getRandomInt(150) + 15 + 'px';
-    box.style.height = getRandomInt(333) + 55 + 'px';
-    box.style.transform = `rotate(${getRandomInt(6) + 87}deg)`;
-    container.appendChild(box);
-}
+// for (let i = 0; i < 20; i++) {
+//     const box = document.createElement('div');
+//     box.className = 'random-box';
+//     box.style.backgroundColor = colors[getRandomInt(colors.length)];
+//     box.style.top = getRandomInt(window.innerHeight - 222) + 'px'; // Constrains the divs within the viewport
+//     box.style.left = getRandomInt(window.innerWidth - 222) + 'px'; // Constrains the divs within the viewport
+//     box.style.width = getRandomInt(150) + 15 + 'px';
+//     box.style.height = getRandomInt(333) + 55 + 'px';
+//     box.style.transform = `rotate(${getRandomInt(6) + 87}deg)`;
+//     container.appendChild(box);
+// }
