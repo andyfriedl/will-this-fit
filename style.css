@@ -1,17 +1,18 @@
 :root {
-    --primary-color: #A0CABA; /* Bright blue */
-    --secondary-color: #6C757D;  /* Medium gray */
-    --body-bg: #F8F9FA;     /* Very light gray */
-    --container-bg: #cbd2d9;  /* Light gray */
-    --border-color: #DEE2E6;  /* Light gray */
-    --text-color: #051012;    /* Dark gray */
-    --input-bg: #FFFFFF; /* White */
-    --btn-background: #28A745; /* Green */
-    --btn-hover: #218838;      /* Darker green */
-    --btn-remove: #DC3545;    /* Red */
-    --focus-color: #80BDFF;   /* Light blue */
-    --search-result-bg: #FFFFFF; /* White */
-    --color-1: #051012;
+    --primary-color: #A0CABA;
+    --secondary-color: #6C757D;
+    --body-bg: #F8F9FA;
+    --container-bg: #cbd2d9;
+    --border-color: #DEE2E6;
+    --text-color: #051012;
+    --input-bg: #FFFFFF;
+    --btn-background: #28A745;
+    --btn-hover: #2db747;
+    --btn-remove: #DC3545;
+    --btn-remove-hover: red;
+    --focus-color: #051012;
+    --search-result-bg: #FFFFFF;
+    --color-1: #C59D06;
     --color-2: #E95D2E;
     --color-3: #E9E9E9;
     --color-4: #A0CABA;
@@ -27,11 +28,6 @@ p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
 }
 
-.stretched-text {
-    letter-spacing: 2px;
-    transform: scaleX(.8);
-}
-
 .fancy {
     @supports (background-clip: text) or (-webkit-background-clip: text) {
       background-image: 
@@ -45,6 +41,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 body {
+    background-color: #051012;
     font-family: Arial, sans-serif;
     color: var(--text-color);
     display: flex;
@@ -53,8 +50,9 @@ body {
     height: 100vh;
     margin: 0;
     position: relative;
-    background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%, var(--color-4) 100%);
+    /* background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%, var(--color-4) 100%); */
 }
+.random-box {position : absolute; opacity: .3}
 
 .container {
     display: flex;
@@ -63,35 +61,58 @@ body {
     text-align: center;
     padding: 20px;
     background-color: var(--container-bg);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: absolute;
     top: 20px;
     z-index: 1;
     width: 80%;
+    opacity: .98;
 }
 
-.vehicle-selector, .search-container {
+.content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    flex-wrap: wrap; 
+}
+
+.car-image {
+    width: 20%;
+    max-width: 600px;
+    /* margin: 20px auto; */
+    display: block;
+}
+
+.left-column, .right-column {
+    width: 48%;
+    margin-bottom: 20px; 
+}
+
+.vehicle-selector {
     display: flex;
     justify-content: space-between;
     gap: 10px;
     width: 100%;
 }
 
-.vehicle-selector select, .vehicle-selector input {
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.vehicle-selector select, .vehicle-selector input, .search-container input {
     flex: 1;
     min-width: 0;
 }
 
-
-.random-box {
-    position: absolute;
-    opacity: 0.9;
-}
-
 h1 {
     color: var(--text-color);
-    font-size: 4em;
+    font-size: 7em;
     margin-bottom: 20px;
-    font-size: 13vmin;
 }
 
 .abril-fatface-regular {
@@ -112,48 +133,40 @@ p {
     font-size: 1em;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn:hover {
     background-color: var(--btn-hover);
+    transform: scale(1.05);
 }
 
-.car-image {
-    width: 80%;
-    max-width: 600px;
-    margin: 20px auto;
-    display: block;
-}
-
-#year {
-    padding: 15px 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
+input[type="number"], input[type="text"] {
+    padding: 10px;
+    /* border: 1px solid var(--primary-color); */
+    border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
     outline: none;
     background-color: var(--input-bg);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    border: none;
+}
+
+input[type="number"]:focus, input[type="text"]:focus {
+    /* border-color: var(--focus-color); */
+    border: none;
+}
+
+input[type="text"], select, button {
     padding: 10px;
-    border: 1px solid var(--primary-color);
+    /* border: 1px solid var(--primary-color); */
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
-}
-
-.search-container {
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.search-container input {
-    /* width: calc(100% - 20px); */
-    width: 100%;
-    padding: 10px;
-    /* margin-right: 10px; */
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    outline: none;
+    border: none;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
 
 .search-results {
@@ -161,17 +174,18 @@ p {
     top: 100%;
     left: 0;
     width: 100%;
-    max-height: 150px;
+    /* max-height: 150px; */
     overflow-y: auto;
     background-color: var(--search-result-bg);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 2;
-    border: 1px solid var(--border-color);
+    /* border: 1px solid var(--border-color); */
 }
 
 .search-results div {
     padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .search-results div:hover {
@@ -191,10 +205,9 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0 auto; /* Center the list items */
     border-radius: 4px;
+    background-color: var(--search-result-bg);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .product-search-item {
@@ -203,45 +216,53 @@ p {
 
 .product-search-item button {
     background-color: var(--btn-remove);
-    font-size: 10px; /* Smaller font size for remove button */
-    padding: 5px 10px; /* Smaller padding for remove button */
+    font-size: 10px;
+    padding: 5px 10px;
+    color: #fff;
+    transition: background-color 0.3s, transform 0.3s;
+
 }
 
-#results {
-    margin-top: 20px;
-    text-align: left;
+.product-search-item button:hover {
+    background-color: var(--btn-remove-hover);
+    transform: scale(1.05);
 }
 
-input[type="text"] {
-    padding: 15px 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 18px;
-    outline: none;
-    background-color: var(--input-bg);
-    transition: border-color 0.2s ease-in-out;
+
+.random-box-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
 }
 
-input[type="text"]:focus {
-    border-color: var(--focus-color);
+.random-box {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    /* border-radius: 8px; */
+    transform: rotate(0deg);
+    /* transition: transform 0.5s ease-in-out;  */
 }
 
-input[type="text"], select, button {
-    padding: 10px;
-    border: 1px solid var(--primary-color);
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-    outline: none;
-}
+.color-1 { background-color: var(--color-1); }
+.color-2 { background-color: var(--color-2); }
+.color-3 { background-color: var(--color-3); }
+.color-4 { background-color: var(--color-4); }
+.color-5 { background-color: var(--color-5); }
 
-select {
-    background-color: var(--input-bg);
-}
 
-button {
-    background-color: #232829;
-    color: white;
-    cursor: pointer;
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .left-column, .right-column {
+        width: 100%; /* Make columns full width on smaller screens */
+        min-width: 100%; /* Ensure columns take up full width */
+    }
+
+    h1 {
+        font-size: 8vmin; /* Adjust title size on smaller screens */
+    }
 }
