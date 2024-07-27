@@ -32,6 +32,9 @@ const vehicleData = {
   },
 };
 
+let selectedCargoWidth, selectedCargoHeight, selectedCargoDepth;
+let found = false;
+
 const { makes, cargoDimensions } = vehicleData;
 
 function updateModels() {
@@ -39,7 +42,12 @@ function updateModels() {
   const modelSelect = document.getElementById("model");
   const selectedMake = makeSelect.value;
 
-  modelSelect.innerHTML = '<option value="">Select Model</option>';
+  document.getElementById("productSearch").disabled = true;
+  document.getElementById("year").value = "";
+  document.getElementById("error").textContent = "";
+  document.getElementById("dimensions").textContent = ""
+
+  modelSelect.innerHTML = '<option value="">Model</option>';
   if (selectedMake) {
     makes[selectedMake].forEach((model) => {
       modelSelect.innerHTML += `<option value="${model}">${model}</option>`;
@@ -55,10 +63,23 @@ function updateDimensions() {
   const errorDiv = document.getElementById("error");
   const selectedModel = modelSelect.value;
   const selectedMake = makeSelect.value;
-  const selectedYear = parseInt(yearInput.value);
+  const selectedYearString = yearInput.value; // Get the value as a string
 
+  // Check year is a valid 4-digit number
+  if (!/^(19|20)\d{2}$/.test(selectedYearString)) {
+    dimensionsDiv.textContent = "";
+    errorDiv.textContent = "Please enter a valid 4-digit year";
+    yearInput.value = ""; // Clear the input field
+    yearInput.focus(); // Set focus back to the input field
+    document.getElementById("productSearch").disabled = true;
+    return; // Exit function if is invalid
+  }
+
+  const selectedYear = parseInt(selectedYearString); // Convert to integer
   dimensionsDiv.textContent = "";
   errorDiv.textContent = "";
+
+  document.getElementById("productSearch").disabled = true;
 
   if (selectedModel && selectedYear) {
     const modelDimensions = cargoDimensions[selectedModel];
@@ -67,19 +88,34 @@ function updateDimensions() {
     for (const range in modelDimensions) {
       const [startYear, endYear] = range.split("-").map(Number);
       if (selectedYear >= startYear && selectedYear <= endYear) {
+        const dimensions = modelDimensions[range];
+
         dimensionsDiv.textContent =
           selectedMake +
           " " +
           selectedModel +
           " cargo area = " +
           JSON.stringify(modelDimensions[range]); // Display dimensions as JSON for clarity
+
+        selectedCargoWidth = dimensions.width;
+        selectedCargoHeight = dimensions.height;
+        selectedCargoDepth = dimensions.depth;
+
+        // console.log("selectedCargoWidth:", dimensions.width);
+        // console.log("selectedCargoHeight:", selectedCargoHeight);
+        // console.log("selectedCargoDepth:", selectedCargoDepth);
         found = true;
+
         break;
       }
     }
 
     if (!found) {
       errorDiv.textContent = "Error: Selected year is out of range.";
+      console.log("error");
+      document.getElementById("productSearch").disabled = true;
+    } else {
+      document.getElementById("productSearch").disabled = false;
     }
   }
 }
@@ -92,6 +128,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   updateModels(); // Call updateModels here
 });
+
+function simulateEnterKey() {
+  const event = new KeyboardEvent('keydown', {
+    bubbles: true,
+    cancelable: true,
+    key: 'Enter',
+    code: 'Enter',
+    keyCode: 13,
+    charCode: 13,
+  });
+  document.dispatchEvent(event);
+}
+
 
 // -----================== search ==================----------
 
@@ -141,107 +190,79 @@ const boxes = [
 ];
 
 function populateProductSearchResults(query) {
-    const resultsDiv = document.getElementById("productSearchResults");
-    resultsDiv.innerHTML = "";
-  
-    if (!query) {
-      return;
-    }
-  
-    // Filter boxes based on product name or id
-    const filteredBoxes = boxes.filter(box => {
-      return box.product_name.toLowerCase().includes(query.toLowerCase()) ||
-             box.product_id.toString().includes(query);
-    });
-  
-    if (filteredBoxes.length === 0) {
-      resultsDiv.innerHTML = '<div>No products found</div>';
-      return;
-    }
-  
-    const fragment = document.createDocumentFragment();
-  
-    filteredBoxes.forEach(box => {
-      const div = document.createElement("div");
-      div.textContent = `${box.product_name} (${box.product_id})`;
-      div.className = "search-result-item";
-      div.dataset.boxId = box.product_id;
-      div.addEventListener("click", () => {
-        addProduct(box);
-        resultsDiv.innerHTML = ""; // Clear results after selection
-        document.getElementById("productSearch").value = ""; // Clear input field
-      });
-      fragment.appendChild(div);
-    });
-  
-    resultsDiv.prepend(fragment);
-  }
-  
+  const resultsDiv = document.getElementById("productSearchResults");
+  resultsDiv.innerHTML = "";
 
-  function addProduct(box) {
-    const selectedProducts = document.getElementById("selectedProducts");
-  
-    // Check if the product already exists in the selected products
-    const existingItem = Array.from(selectedProducts.children).find(item => item.dataset.boxId === box.product_id);
-  
-    if (existingItem) {
-      // If product exists, increment quantity ----- not working
-      const currentQuantity = parseInt(existingItem.dataset.quantity);
-      const newQuantity = currentQuantity + 1;
-      existingItem.dataset.quantity = newQuantity;
-      existingItem.textContent = `${box.product_name} (${box.product_id}) x ${newQuantity}`;
-    } else {
-      // If product doesn't exist, create a new list item
-      const item = document.createElement("li");
+  if (!query) {
+    return;
+  }
+
+  // Filter boxes based on product name or id
+  const filteredBoxes = boxes.filter((box) => {
+    return (
+      box.product_name.toLowerCase().includes(query.toLowerCase()) ||
+      box.product_id.toString().includes(query)
+    );
+  });
+
+  if (filteredBoxes.length === 0) {
+    resultsDiv.innerHTML = "<div>No products found</div>";
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  filteredBoxes.forEach((box) => {
+    const div = document.createElement("div");
+    div.textContent = `${box.product_name} (${box.product_id})`;
+    div.className = "search-result-item";
+    div.dataset.boxId = box.product_id;
+    div.addEventListener("click", () => {
+      addProduct(box);
+      resultsDiv.innerHTML = ""; // Clear results after selection
+      document.getElementById("productSearch").value = ""; // Clear input field
+    });
+    fragment.appendChild(div);
+  });
+
+  resultsDiv.prepend(fragment);
+}
+
+function addProduct(box) {
+  const selectedProducts = document.getElementById("selectedProducts");
+
+  // Check if the product already exists in the selected products
+  const existingItem = Array.from(selectedProducts.children).find(
+    (item) => item.dataset.boxId === box.product_id
+  );
+
+  if (existingItem) {
+    // If product exists, increment quantity ----- not working
+    const currentQuantity = parseInt(existingItem.dataset.quantity);
+    const newQuantity = currentQuantity + 1;
+    existingItem.dataset.quantity = newQuantity;
+    existingItem.textContent = `${box.product_name} (${box.product_id}) x ${newQuantity}`;
+  } else {
+    // If product doesn't exist, create a new list item
+    const item = document.createElement("li");
     //   item.textContent = `${box.product_name} (${box.product_id}) - qty: 1`;
-      item.textContent = `${box.product_name} (${box.product_id})`;
-      item.dataset.boxId = box.product_id;
-      item.dataset.quantity = 1;
-      item.classList.add("product-search-item");
-  
-      const removeButton = document.createElement("button");
-      removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-      removeButton.addEventListener("click", () => {
-        selectedProducts.removeChild(item);
-      });
-      item.appendChild(removeButton);
-  
-      // Prepend the new item to the selected products list
-      selectedProducts.prepend(item);
-    }
-  }
+    item.textContent = `${box.product_name} (${box.product_id})`;
+    item.dataset.boxId = box.product_id;
+    item.dataset.quantity = 1;
+    item.classList.add("product-search-item");
 
-  
-  
+    const removeButton = document.createElement("button");
+    removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    removeButton.addEventListener("click", () => {
+      selectedProducts.removeChild(item);
+    });
+    item.appendChild(removeButton);
+
+    // Prepend the new item to the selected products list
+    selectedProducts.prepend(item);
+  }
+}
 
 document.getElementById("productSearch").addEventListener("input", (event) => {
   populateProductSearchResults(event.target.value);
 });
-
-
-const select = document.getElementById('make');
-select.addEventListener('change', function() {
-  const selectedOption = select.options[select.selectedIndex];
-  const iconClass = selectedOption.dataset.icon;
-  // Replace placeholder with the icon based on iconClass
-});
-
-// Random background boxes generation
-// const colors = ['#a1caba', '#e9ba08', '#ad2e00', '#e95d2e', '#d3a708', '#232829']; // E9E9E8
-// const container = document.body;
-
-// function getRandomInt(max) {
-//     return Math.floor(Math.random() * max);
-// }
-
-// for (let i = 0; i < 20; i++) {
-//     const box = document.createElement('div');
-//     box.className = 'random-box';
-//     box.style.backgroundColor = colors[getRandomInt(colors.length)];
-//     box.style.top = getRandomInt(window.innerHeight - 222) + 'px'; // Constrains the divs within the viewport
-//     box.style.left = getRandomInt(window.innerWidth - 222) + 'px'; // Constrains the divs within the viewport
-//     box.style.width = getRandomInt(150) + 15 + 'px';
-//     box.style.height = getRandomInt(333) + 55 + 'px';
-//     box.style.transform = `rotate(${getRandomInt(6) + 87}deg)`;
-//     container.appendChild(box);
-// }

@@ -19,24 +19,33 @@
 }
 
 /* Remove built-in form typography styles */
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
     font: inherit;
 }
 
 /* Avoid text overflows */
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     overflow-wrap: break-word;
 }
 
 .fancy {
     @supports (background-clip: text) or (-webkit-background-clip: text) {
-      background-image: 
-        url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23AD2E00' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%23333333'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23E95D2E'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23c69d07'/%3E%3C/g%3E%3C/svg%3E%0A");
-      background-size: 110% auto;
-      background-position: center;
-      color: transparent;
-      -webkit-background-clip: text;
-      background-clip: text;
+        background-image:
+            url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23AD2E00' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%23333333'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23E95D2E'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23c69d07'/%3E%3C/g%3E%3C/svg%3E%0A");
+        background-size: 110% auto;
+        background-position: center;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
     }
 }
 
@@ -52,6 +61,7 @@ body {
     position: relative;
     /* background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%, var(--color-4) 100%); */
 }
+
 /* .random-box {position : absolute; opacity: .3} */
 
 .container {
@@ -76,7 +86,7 @@ body {
     justify-content: space-between;
     width: 100%;
     margin-top: 20px;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 .car-image {
@@ -86,9 +96,10 @@ body {
     display: block;
 }
 
-.left-column, .right-column {
+.left-column,
+.right-column {
     width: 48%;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .vehicle-selector {
@@ -106,7 +117,11 @@ body {
     margin-bottom: 20px;
 }
 
-.vehicle-selector select, .vehicle-selector input, .search-container input {
+
+
+.vehicle-selector select,
+.vehicle-selector input,
+.search-container input {
     flex: 1;
     min-width: 0;
 }
@@ -144,7 +159,21 @@ p {
     transform: scale(1.05);
 }
 
-input[type="number"], input[type="text"] {
+input:disabled {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==) repeat;
+    background-color:red;
+}
+
+input:disabled::placeholder {
+    color: #aaaaaa;
+}
+
+input::placeholder {
+    color: #000000;
+}
+
+input[type="number"],
+input[type="text"] {
     padding: 10px;
     /* border: 1px solid var(--primary-color); */
     border-radius: 5px;
@@ -156,12 +185,15 @@ input[type="number"], input[type="text"] {
     border: none;
 }
 
-input[type="number"]:focus, input[type="text"]:focus {
+input[type="number"]:focus,
+input[type="text"]:focus {
     /* border-color: var(--focus-color); */
     border: none;
 }
 
-input[type="text"], select, button {
+input[type="text"],
+select,
+button {
     padding: 10px;
     /* border: 1px solid var(--primary-color); */
     border-radius: 5px;
@@ -169,7 +201,8 @@ input[type="text"], select, button {
     font-size: 16px;
     outline: none;
     border: none;
-    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    /* Smooth transition */
 }
 
 .search-results {
@@ -247,11 +280,25 @@ input[type="text"], select, button {
     /* transition: transform 0.5s ease-in-out;  */
 }
 
-.color-1 { background-color: var(--color-1); }
-.color-2 { background-color: var(--color-2); }
-.color-3 { background-color: var(--color-3); }
-.color-4 { background-color: var(--color-4); }
-.color-5 { background-color: var(--color-5); }
+.color-1 {
+    background-color: var(--color-1);
+}
+
+.color-2 {
+    background-color: var(--color-2);
+}
+
+.color-3 {
+    background-color: var(--color-3);
+}
+
+.color-4 {
+    background-color: var(--color-4);
+}
+
+.color-5 {
+    background-color: var(--color-5);
+}
 
 
 /* Media Queries for Responsive Design */
@@ -260,12 +307,45 @@ input[type="text"], select, button {
         flex-direction: column;
     }
 
-    .left-column, .right-column {
-        width: 100%; /* Make columns full width on smaller screens */
-        min-width: 100%; /* Ensure columns take up full width */
+    .left-column,
+    .right-column {
+        width: 100%;
+        /* Make columns full width on smaller screens */
+        min-width: 100%;
+        /* Ensure columns take up full width */
     }
 
     h1 {
-        font-size: 8vmin; /* Adjust title size on smaller screens */
+        font-size: 8vmin;
+        /* Adjust title size on smaller screens */
     }
 }
+
+
+/* .vehicle-selector {
+    position: relative;
+}
+
+.vehicle-selector select {
+    padding-left: 30px; /* Adjust based on icon size */
+}
+
+.vehicle-selector::before {
+    content: '\f1b9';
+    /* Font Awesome icon code for car */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    /* For solid icons */
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.font-awesome .fa {
+    font-family: "Font Awesome 5 Free", Open Sans;
+    font-weight: 501;
+}
+
+*/
