@@ -19,13 +19,22 @@
         <h1 class="abril-fatface-regular fancy">Will This Fit in My Car</h1>
         <div class="image-text-container">
             <img src="images/1702408969546.png" alt="Car Image" class="car-image">
-            <p class="playfair-display"><b>Check if your packed IKEA products boxes will fit in your car before you check out!</b></p>
+            <div>
+                <p class="playfair-display">Check if your packed IKEA products boxes will fit in your car before you check out! Don't get stuck in the parking lot with no way to get a huge item home.</p>
+                <br>
+                <p class="abril-fatface-regular"><u>How to tell if it fits after you have searched for products:</u></p>
+                <ul>
+                    <li><i class="fas fa-check box_success"></i>  <i class="fas fa-box box_success"></i> Box fits!</li>
+                    <li><i class="fas fa-check box_warning"></i>  <i class="fas fa-box box_warning"></i> Box fits but will hang out</li>
+                    <li><i class="fas fa-check box_error"></i>  <i class="fas fa-box box_error"></i> Box does not fit your vehicle</li>
+                </ul>
+            </div>
         </div>
         <div class="content">
             <div class="left-column">
                 <h2 class="abril-fatface-regular">Step 1. Select your vehicle:</h2>
                 <div class="vehicle-selector">
-                    
+
                     <!-- Make -->
                     <select id="make" onchange="updateModels()">
                         <option value=""> Make</option>

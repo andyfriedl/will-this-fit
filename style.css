@@ -191,12 +191,7 @@ button {
 
 }
 
-.image-text-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    align-items: center;
-    border-radius: 5px;
-}
+
 
 .car-image {
     width: 100%;
@@ -207,9 +202,43 @@ p {
     text-align: center;
 }
 
+.box_success {
+color: #2ecc71;
+}
+
+.box_warning {
+    color: #F9B007;
+}
+
+.box_error {
+    color: #DC3545;
+}
 .image-text-container {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 2fr; /* Ensures image and text content are side by side */
+    align-items: start; /* Align items at the top */
+    gap: 20px; /* Add some space between image and text content */
+    border-radius: 5px;
+}
+
+/* Add padding and margin adjustments for the paragraph and list */
+.image-text-container p,
+.image-text-container ul {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+/* Center the ul within its container while keeping the text left-aligned */
+.image-text-container ul {
+    list-style-type: none; /* Remove bullet points */
+    display: inline-block; /* Make the ul inline-block to center it */
+    text-align: left; /* Left-align the text inside the ul */
+}
+
+.image-text-container li {
+    width: 100%; /* Make sure each li takes the full width */
+    text-align: left; /* Left align the text within each li */
+    margin-bottom: 10px; /* Add some space between list items */
 }
 
 .left-column,
