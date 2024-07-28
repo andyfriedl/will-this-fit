@@ -17,6 +17,7 @@
     --color-3: #E9E9E9;
     --color-4: #A0CABA;
 }
+
 /* Remove built-in form typography styles */
 input,
 button,
@@ -59,7 +60,7 @@ h6 {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-  }
+}
 
 body {
     background-color: var(--body-bg);
@@ -74,106 +75,12 @@ body {
     /* background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%, var(--color-4) 100%); */
 }
 
-
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    background-color: var(--container-bg);
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-    position: absolute;
-    /* top: 20px; */
-    z-index: 1;
-    width: 80%;
-    opacity: .98;
-    border-radius: 5px;
-
-}
-
-.content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 1px;
-    flex-wrap: wrap;
-
-}
-
-.image-text-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr; /* Existing grid definition */
-    align-items: center; /* Center content vertically within the container */
-    border-radius: 5px;
-    /* background-color: #b7cfc9; */
-  }
-  
-  .car-image {
-    width: 100%; /* Maintain image width for grid layout */
-    height: auto;  /* Maintain aspect ratio */
-  }
-  
-  p {  /* No need to target p specifically */
-    text-align: center; /* Center text horizontally */
-  }
-
-/* .car-image {
-    width: 20%;
-    max-width: 600px;
-    display: block;
-} */
-
-.image-text-container {
-    display: grid; /* Enable grid layout */
-    grid-template-columns: 1fr 2fr; /* Define columns: image (1fr) and text (2fr) */
-}
-
-.left-column,
-.right-column {
-    width: 48%;
-    margin-bottom: 20px;
-}
-
-.vehicle-selector {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    width: 100%;
-}
-
-.search-container {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.dimensions {
-    border-radius: 5px;
-    /* background-color: #835743; */
-    /* border-style: dotted; */
-    /* color: white; */
-    padding: 10px;
-}
-
-.vehicle-selector select,
-.vehicle-selector input,
-.search-container input {
-    flex: 1;
-    min-width: 0;
-}
-
 h1 {
     color: var(--text-color);
     font-size: 7em;
     margin-bottom: 20px;
     margin-top: -20px;
 }
-
-
 
 p {
     font-size: 1.2em;
@@ -196,9 +103,9 @@ p {
 }
 
 input:disabled {
-    background-color: #ccc; /* Replace #ccc with your desired color */
-    opacity: 0.5; /* Optional: Reduce opacity for a disabled look */
-    cursor: not-allowed; /* Change cursor to indicate disabled state */
+    background-color: #ccc;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 input:disabled::placeholder {
@@ -212,7 +119,6 @@ input::placeholder {
 input[type="number"],
 input[type="text"] {
     padding: 10px;
-    /* border: 1px solid var(--primary-color); */
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
@@ -224,7 +130,6 @@ input[type="text"] {
 
 input[type="number"]:focus,
 input[type="text"]:focus {
-    /* border-color: var(--focus-color); */
     border: none;
 }
 
@@ -232,28 +137,107 @@ input[type="text"],
 select,
 button {
     padding: 10px;
-    /* border: 1px solid var(--primary-color); */
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
     outline: none;
     border: none;
     transition: border-color 0.3s, box-shadow 0.3s;
-    /* Smooth transition */
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--container-bg);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 1;
+    width: 80%;
+    opacity: .98;
+    border-radius: 5px;
+
+}
+
+/* Content area  */
+.content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1px;
+    flex-wrap: wrap;
+
+}
+
+.image-text-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.car-image {
+    width: 100%;
+    height: auto;
+}
+
+p {
+    text-align: center;
+}
+
+.image-text-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.left-column,
+.right-column {
+    width: 48%;
+    margin-bottom: 20px;
+}
+
+/* vehicle */
+
+.vehicle-selector {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.dimensions {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.vehicle-selector select,
+.vehicle-selector input,
+.search-container input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* search */
 
 .search-results {
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-    /* max-height: 150px; */
     overflow-y: auto;
     background-color: var(--search-result-bg);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 2;
-    /* border: 1px solid var(--border-color); */
 }
 
 .search-results div {
@@ -304,33 +288,12 @@ button {
 
 .product-search-item:before {
     font-family: FontAwesome;
-	content: "\f00c  \0020 \f466";
-	margin-left: -2px;
-	color: #2ecc71;
+    content: "\f00c  \0020 \f466";
+    margin-left: -2px;
+    color: #2ecc71;
 }
 
-
-
-
-.color-1 {
-    background-color: var(--color-1);
-}
-
-.color-2 {
-    background-color: var(--color-2);
-}
-
-.color-3 {
-    background-color: var(--color-3);
-}
-
-.color-4 {
-    background-color: var(--color-4);
-}
-
-.color-5 {
-    background-color: var(--color-5);
-}
+/* responsive */
 
 /* @media only screen and (max-width: 600px) {
     body {
@@ -339,29 +302,27 @@ button {
   } */
 
 @media (max-width: 768px) {
-  body {
-    .container {
-      width: 100%;
-      max-width: 100%; /* Ensure no other styles override */
-      box-sizing: border-box; /* Include padding and border in width calculation */
+    body {
+        .container {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
     }
-  }
 
-  h1 {
-    font-size: 8vmin;
-    /* Adjust title size on smaller screens */
-}
+    h1 {
+        font-size: 8vmin;
+    }
 
-p {
-    font-size: 2.9vmin;
-}
+    /* p {
+        font-size: 2.9vmin;
+    } */
 
 
-  .left-column,
-  .right-column {
-    width: 100%;
-    /* Other styles for smaller screens */
-  }
+    .left-column,
+    .right-column {
+        width: 100%;
+    }
 }
 
 
