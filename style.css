@@ -373,7 +373,31 @@ color: #2ecc71;
     .right-column {
         width: 100%;
     }
+
+    .image-text-container {
+        grid-template-columns: 1fr; /* Change to a single column layout */
+        text-align: center; /* Center the text content in smaller screens */
+    }
+
+    .image-text-container img {
+        display: block; /* Ensure the image is a block element */
+        margin: 0 auto; /* Center the image horizontally */
+        width: 40%; /* Make the image take the full width of its container */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .image-text-container p {
+        text-align: center;
+    }
+
+    .image-text-container ul {
+        text-align: left; /* Align text to the left for readability */
+        margin: 0 auto; /* Center the text block within the container */
+        max-width: 90%; /* Optional: Limit the width of the text block */
+    }
 }
+
+
 
 
 /* .vehicle-selector {
