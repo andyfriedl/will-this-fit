@@ -37,6 +37,7 @@ h6 {
     overflow-wrap: break-word;
 }
 
+
 .fancy {
     @supports (background-clip: text) or (-webkit-background-clip: text) {
         background-image:
@@ -102,6 +103,9 @@ p {
     transform: scale(1.05);
 }
 
+/*           inputs              */
+
+
 input:disabled {
     background-color: #ccc;
     opacity: 0.5;
@@ -144,6 +148,8 @@ button {
     border: none;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
+
+/*  container */
 
 .container {
     display: flex;
@@ -288,6 +294,7 @@ p {
 
 .product-search-item:before {
     font-family: FontAwesome;
+    font-size:x-large;
     content: "\f00c  \0020 \f466";
     margin-left: -2px;
     color: #2ecc71;

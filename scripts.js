@@ -41,19 +41,46 @@ function updateModels() {
   const makeSelect = document.getElementById("make");
   const modelSelect = document.getElementById("model");
   const selectedMake = makeSelect.value;
-
+  const selectedModel = modelSelect.value;
+  // here
   document.getElementById("productSearch").disabled = true;
+  document.getElementById("year").disabled = true;
   document.getElementById("year").value = "";
   document.getElementById("error").textContent = "";
-  document.getElementById("dimensions").textContent = ""
+  document.getElementById("dimensions").textContent = "";
 
   modelSelect.innerHTML = '<option value="">Model</option>';
+
   if (selectedMake) {
     makes[selectedMake].forEach((model) => {
       modelSelect.innerHTML += `<option value="${model}">${model}</option>`;
     });
   }
+
+  const selectElement = document.getElementById("model");
+  const inputYear = document.getElementById("year");
+
+  selectElement.addEventListener("change", () => {
+    if (selectElement.value !== "") {
+      inputYear.disabled = false;
+      inputYear.value = "";
+    } else {
+      inputYear.disabled = true;
+    }
+  });
+
+  inputYear.addEventListener('input', () => {
+  if (inputYear.value.trim() !== '') {
+    console.log('here1')
+    inputYear.style.backgroundColor = 'white'; // Replace with your desired color
+  } else {
+    console.log('here2')
+    inputYear.style.backgroundColor = 'red'; // Reset to default
+  }
+  
+});
 }
+
 
 function updateDimensions() {
   const modelSelect = document.getElementById("model");
@@ -110,6 +137,7 @@ function updateDimensions() {
       }
     }
 
+    // enable year after make and model
     if (!found) {
       errorDiv.textContent = "Error: Selected year is out of range.";
       console.log("error");
@@ -130,17 +158,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function simulateEnterKey() {
-  const event = new KeyboardEvent('keydown', {
+  const event = new KeyboardEvent("keydown", {
     bubbles: true,
     cancelable: true,
-    key: 'Enter',
-    code: 'Enter',
+    key: "Enter",
+    code: "Enter",
     keyCode: 13,
     charCode: 13,
   });
   document.dispatchEvent(event);
 }
-
 
 // -----================== search ==================----------
 
@@ -206,7 +233,8 @@ function populateProductSearchResults(query) {
   });
 
   if (filteredBoxes.length === 0) {
-    resultsDiv.innerHTML = "<div>No products found</div>";
+    resultsDiv.innerHTML =
+      "<div> <i class='fas fa-exclamation-triangle'></i> No products found</div>";
     return;
   }
 
@@ -230,26 +258,25 @@ function populateProductSearchResults(query) {
 
 function addProduct(box) {
   const selectedProducts = document.getElementById("selectedProducts");
-  
-    // If product doesn't exist, create a new list item
-    const item = document.createElement("li");
-    //   item.textContent = `${box.product_name} (${box.product_id}) - qty: 1`;
-    item.textContent = `${box.product_name} (${box.product_id})` ;
-    item.dataset.boxId = box.product_id;
-    item.dataset.quantity = 1;
-    item.classList.add("product-search-item");
 
-    const removeButton = document.createElement("button");
-    removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-    removeButton.addEventListener("click", () => {
-      selectedProducts.removeChild(item);
-    });
-    console.log("after existingItem ");
-    item.appendChild(removeButton);
+  // If product doesn't exist, create a new list item
+  const item = document.createElement("li");
+  //   item.textContent = `${box.product_name} (${box.product_id}) - qty: 1`;
+  item.textContent = `${box.product_name} (${box.product_id})`;
+  item.dataset.boxId = box.product_id;
+  item.dataset.quantity = 1;
+  item.classList.add("product-search-item");
 
-    // Prepend the new item to the selected products list
-    selectedProducts.prepend(item);
-  
+  const removeButton = document.createElement("button");
+  removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+  removeButton.addEventListener("click", () => {
+    selectedProducts.removeChild(item);
+  });
+  console.log("after existingItem ");
+  item.appendChild(removeButton);
+
+  // Prepend the new item to the selected products list
+  selectedProducts.prepend(item);
 }
 
 document.getElementById("productSearch").addEventListener("input", (event) => {

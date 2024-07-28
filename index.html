@@ -25,17 +25,23 @@
             <div class="left-column">
                 <h2 class="abril-fatface-regular">Step 1. Select your vehicle:</h2>
                 <div class="vehicle-selector">
-
+                    
+                    <!-- Make -->
                     <select id="make" onchange="updateModels()">
                         <option value=""> Make</option>
                     </select>
 
+                    <!-- Model -->
                     <select id="model">
                         <option  value=""> Model</option>
                     </select>
-                    
-                    <input type="number" id="year" placeholder="Year" pattern="[0-9]{4}" min="1900" max="2099" maxlength="4" onchange="updateDimensions()" required>
+
+                    <!-- Year -->
+                    <input type="number" id="year" placeholder="Year" pattern="[0-9]{4}" min="1900" max="2099" maxlength="4" onchange="updateDimensions()" required disabled>
+
+                    <!-- click enter -->
                     <button class="btn" id="year-submit" onclick="simulateEnterKey()"><i class="fa-solid fa-magnifying-glass"></i></button>
+
                 </div>
                 <h4 class="dimensions" id="dimensions"></h4>
                 <div class="error" id="error"></div>
@@ -43,6 +49,7 @@
             <div class="right-column">
                 <h2 class="abril-fatface-regular">Step 2. Search for products:</h2>
                 <div class="search-container">
+                    <!-- product search -->
                     <input type="text" class="input-box" id="productSearch" placeholder="Search by product name or number..." disabled>
                     <div id="productSearchResults" class="search-results"></div>
                 </div>
