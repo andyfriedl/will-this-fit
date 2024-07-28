@@ -94,7 +94,7 @@ function updateDimensions() {
           selectedMake +
           " " +
           selectedModel +
-          " cargo area = " +
+          "  cargo area = " +
           JSON.stringify(modelDimensions[range]); // Display dimensions as JSON for clarity
 
         selectedCargoWidth = dimensions.width;
@@ -230,23 +230,11 @@ function populateProductSearchResults(query) {
 
 function addProduct(box) {
   const selectedProducts = document.getElementById("selectedProducts");
-
-  // Check if the product already exists in the selected products
-  const existingItem = Array.from(selectedProducts.children).find(
-    (item) => item.dataset.boxId === box.product_id
-  );
-
-  if (existingItem) {
-    // If product exists, increment quantity ----- not working
-    const currentQuantity = parseInt(existingItem.dataset.quantity);
-    const newQuantity = currentQuantity + 1;
-    existingItem.dataset.quantity = newQuantity;
-    existingItem.textContent = `${box.product_name} (${box.product_id}) x ${newQuantity}`;
-  } else {
+  
     // If product doesn't exist, create a new list item
     const item = document.createElement("li");
     //   item.textContent = `${box.product_name} (${box.product_id}) - qty: 1`;
-    item.textContent = `${box.product_name} (${box.product_id})`;
+    item.textContent = `${box.product_name} (${box.product_id})` ;
     item.dataset.boxId = box.product_id;
     item.dataset.quantity = 1;
     item.classList.add("product-search-item");
@@ -256,11 +244,12 @@ function addProduct(box) {
     removeButton.addEventListener("click", () => {
       selectedProducts.removeChild(item);
     });
+    console.log("after existingItem ");
     item.appendChild(removeButton);
 
     // Prepend the new item to the selected products list
     selectedProducts.prepend(item);
-  }
+  
 }
 
 document.getElementById("productSearch").addEventListener("input", (event) => {

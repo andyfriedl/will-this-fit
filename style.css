@@ -48,9 +48,22 @@ h6 {
     }
 }
 
+.abril-fatface-regular {
+    font-family: "Abril Fatface", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.playfair-display {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
 body {
     background-color: var(--body-bg);
-    font-family: Arial, sans-serif;
+    font-family: "Playfair Display", serif;
     color: var(--text-color);
     display: flex;
     justify-content: center;
@@ -84,14 +97,17 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 1px;
     flex-wrap: wrap;
+
 }
 
 .image-text-container {
     display: grid;
     grid-template-columns: 1fr 2fr; /* Existing grid definition */
     align-items: center; /* Center content vertically within the container */
+    border-radius: 5px;
+    /* background-color: #b7cfc9; */
   }
   
   .car-image {
@@ -135,7 +151,13 @@ body {
     margin-bottom: 20px;
 }
 
-
+.dimensions {
+    border-radius: 5px;
+    /* background-color: #835743; */
+    /* border-style: dotted; */
+    /* color: white; */
+    padding: 10px;
+}
 
 .vehicle-selector select,
 .vehicle-selector input,
@@ -151,11 +173,7 @@ h1 {
     margin-top: -20px;
 }
 
-.abril-fatface-regular {
-    font-family: "Abril Fatface", serif;
-    font-weight: 400;
-    font-style: normal;
-}
+
 
 p {
     font-size: 1.2em;
@@ -178,7 +196,9 @@ p {
 }
 
 input:disabled {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==) repeat;
+    background-color: #ccc; /* Replace #ccc with your desired color */
+    opacity: 0.5; /* Optional: Reduce opacity for a disabled look */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
 }
 
 input:disabled::placeholder {
@@ -221,6 +241,7 @@ button {
     transition: border-color 0.3s, box-shadow 0.3s;
     /* Smooth transition */
 }
+
 
 .search-results {
     position: absolute;
@@ -281,6 +302,13 @@ button {
     transform: scale(1.05);
 }
 
+.product-search-item:before {
+    font-family: FontAwesome;
+	content: "\f00c  \0020 \f466";
+	margin-left: -2px;
+	color: #2ecc71;
+}
+
 
 
 
@@ -304,25 +332,36 @@ button {
     background-color: var(--color-5);
 }
 
+/* @media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  } */
 
-/* Media Queries for Responsive Design */
 @media (max-width: 768px) {
-    .content {
-        flex-direction: column;
+  body {
+    .container {
+      width: 100%;
+      max-width: 100%; /* Ensure no other styles override */
+      box-sizing: border-box; /* Include padding and border in width calculation */
     }
+  }
 
-    .left-column,
-    .right-column {
-        width: 100%;
-        /* Make columns full width on smaller screens */
-        min-width: 100%;
-        /* Ensure columns take up full width */
-    }
+  h1 {
+    font-size: 8vmin;
+    /* Adjust title size on smaller screens */
+}
 
-    h1 {
-        font-size: 8vmin;
-        /* Adjust title size on smaller screens */
-    }
+p {
+    font-size: 2.9vmin;
+}
+
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    /* Other styles for smaller screens */
+  }
 }
 
 
