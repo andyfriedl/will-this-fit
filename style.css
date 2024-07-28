@@ -167,6 +167,20 @@ button {
 
 }
 
+/* make the inputs and selects have a border */
+.container input[type="number"],
+.container input[type="text"],
+.container select {
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+    background-color: var(--input-bg);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    border: 1px solid #78c1b4; /* Add the border here */
+}
+
 /* Content area  */
 .content {
     display: flex;

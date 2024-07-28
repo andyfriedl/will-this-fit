@@ -69,16 +69,6 @@ function updateModels() {
     }
   });
 
-  inputYear.addEventListener('input', () => {
-  if (inputYear.value.trim() !== '') {
-    console.log('here1')
-    inputYear.style.backgroundColor = 'white'; // Replace with your desired color
-  } else {
-    console.log('here2')
-    inputYear.style.backgroundColor = 'red'; // Reset to default
-  }
-  
-});
 }
 
 
