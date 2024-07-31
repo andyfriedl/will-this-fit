@@ -6,7 +6,7 @@
     --border-color: #DEE2E6;
     --text-color: #051012;
     --input-bg: #FFFFFF;
-    --btn-background: #28A745;
+    --green: #28A745;
     --btn-hover: #2db747;
     --btn-remove: #DC3545;
     --btn-remove-hover: red;
@@ -17,7 +17,7 @@
     --color-3: #E9E9E9;
     --color-4: #A0CABA;
 }
-
+/* 28A745 */
 /* Remove built-in form typography styles */
 input,
 button,
@@ -41,7 +41,7 @@ h6 {
 .fancy {
     @supports (background-clip: text) or (-webkit-background-clip: text) {
         background-image:
-            url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23bf0214' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%23333333'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23268E70'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23D2A14C'/%3E%3C/g%3E%3C/svg%3E%0A");
+            url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23C9040F' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%232B2137'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23238F71'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23CB8338'/%3E%3C/g%3E%3C/svg%3E%0A");
         background-size: 110% auto;
         background-position: center;
         color: transparent;
@@ -89,7 +89,7 @@ p {
 }
 
 .btn {
-    background-color: var(--btn-background);
+    background-color: var(--green);
     color: #FFFFFF;
     padding: 10px 20px;
     font-size: 1em;
@@ -203,15 +203,15 @@ p {
 }
 
 .box_success {
-color: #2ecc71;
+color: var(--green);
 }
 
 .box_warning {
-    color: #F9B007;
+    color: #C88139;
 }
 
 .box_error {
-    color: #DC3545;
+    color: #C60610;
 }
 .image-text-container {
     display: grid;
@@ -267,6 +267,7 @@ color: #2ecc71;
 .dimensions {
     border-radius: 5px;
     padding: 10px;
+    
 }
 
 .vehicle-selector select,
@@ -340,7 +341,7 @@ color: #2ecc71;
     font-size:x-large;
     content: "\f00c  \0020 \f466";
     margin-left: -2px;
-    color: #2ecc71;
+    color: var(--green);
 }
 
 /* responsive */
@@ -397,6 +398,19 @@ color: #2ecc71;
     }
 }
 
+.removeButton {
+    display: flex; /* Make the button a flex container */
+  justify-content: center; /* Center content horizontally */
+  align-items: center;
+    width: 5vh;
+    height: 5vh;
+    cursor: pointer;
+
+}
+
+.removeButton i {
+    font-size: 14px; /* Adjust font size as needed */
+  }
 
 
 

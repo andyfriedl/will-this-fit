@@ -77,7 +77,6 @@ function updateDimensions() {
   const makeSelect = document.getElementById("make");
   const yearInput = document.getElementById("year");
   const dimensionsDiv = document.getElementById("dimensions");
-  const errorDiv = document.getElementById("error");
   const selectedModel = modelSelect.value;
   const selectedMake = makeSelect.value;
   const selectedYearString = yearInput.value; // Get the value as a string
@@ -85,7 +84,7 @@ function updateDimensions() {
   // Check year is a valid 4-digit number
   if (!/^(19|20)\d{2}$/.test(selectedYearString)) {
     dimensionsDiv.textContent = "";
-    errorDiv.textContent = "Please enter a valid 4-digit year";
+    dimensionsDiv.innerHTML +=  "<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: Please enter a valid 4-digit year</div>";
     yearInput.value = ""; // Clear the input field
     yearInput.focus(); // Set focus back to the input field
     document.getElementById("productSearch").disabled = true;
@@ -94,7 +93,6 @@ function updateDimensions() {
 
   const selectedYear = parseInt(selectedYearString); // Convert to integer
   dimensionsDiv.textContent = "";
-  errorDiv.textContent = "";
 
   document.getElementById("productSearch").disabled = true;
 
@@ -107,12 +105,13 @@ function updateDimensions() {
       if (selectedYear >= startYear && selectedYear <= endYear) {
         const dimensions = modelDimensions[range];
 
-        dimensionsDiv.textContent =
+        dimensionsDiv.innerHTML =
+        " <div> <i class='box_success fas fa-check box_success fa-lg'></i> " +
           selectedMake +
           " " +
           selectedModel +
           "  cargo area = " +
-          JSON.stringify(modelDimensions[range]); // Display dimensions as JSON for clarity
+          JSON.stringify(modelDimensions[range]) + "</div>"; // Display dimensions as JSON for clarity
 
         selectedCargoWidth = dimensions.width;
         selectedCargoHeight = dimensions.height;
@@ -129,7 +128,7 @@ function updateDimensions() {
 
     // enable year after make and model
     if (!found) {
-      errorDiv.textContent = "Error: Selected year is out of range.";
+      dimensionsDiv.innerHTML +=  "<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: Selected year is out of range.</div>";
       console.log("error");
       document.getElementById("productSearch").disabled = true;
     } else {
@@ -224,7 +223,7 @@ function populateProductSearchResults(query) {
 
   if (filteredBoxes.length === 0) {
     resultsDiv.innerHTML =
-      "<div> <i class='fas fa-exclamation-triangle'></i> No products found</div>";
+      "<div> <i class='box_error fas fa-exclamation-triangle'></i> No products found</div>";
     return;
   }
 
@@ -258,7 +257,8 @@ function addProduct(box) {
   item.classList.add("product-search-item");
 
   const removeButton = document.createElement("button");
-  removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+  removeButton.className = "removeButton";
+  removeButton.innerHTML = '<i class="fa-solid fa-xmark "></i>';
   removeButton.addEventListener("click", () => {
     selectedProducts.removeChild(item);
   });
