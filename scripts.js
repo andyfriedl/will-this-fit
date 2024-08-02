@@ -1,36 +1,46 @@
+const d = new Date();
+// console.log(d.getFullYear());
 const vehicleData = {
-  makes: {
-    Jeep: ["Wrangler", "Wrangler Unlimited"],
-    Ford: ["F-150", "Mustang"],
-    Dodge: ["Charger", "Dart"],
+  "currentYear": d.getFullYear(),
+  "makes": {
+    "Jeep": ["Wrangler", "Wrangler Unlimited"],
+    "Ford": ["F-150", "Mustang"],
+    "Dodge": ["Charger", "Dart"],
+    "Subaru": ["Crosstrek"],
   },
-  cargoDimensions: {
-    Wrangler: {
-      "2007-2018": { width: 31.7, height: 22.7, depth: 11.7 },
-      "2019-2024": { width: 32.0, height: 22.0, depth: 12.0 },
+  "cargoDimensions": {
+    "Wrangler": {
+      "2007-2018": { "width": 31.7, "height": 22.7, "depth": 11.7 },
+      "2019-current": { "width": 32.0, "height": 22.0, "depth": 12.0 },
     },
     "Wrangler Unlimited": {
-      "2007-2018": { width: 33.7, height: 24.7, depth: 13.7 },
-      "2019-2024": { width: 34.0, height: 25.0, depth: 14.0 },
+      "2007-2018": { "width": 33.7, "height": 24.7, "depth": 13.7 },
+      "2019-current": { "width": 34.0, "height": 25.0, "depth": 14.0 },
     },
     "F-150": {
-      "2015-2020": { width: 52.8, height: 32.0, depth: 18.0 },
-      "2021-2024": { width: 53.0, height: 32.5, depth: 18.5 },
+      "2015-2020": { "width": 52.8, "height": 32.0, "depth": 18.0 },
+      "2021-current": { "width": 53.0, "height": 32.5, "depth": 18.5 },
     },
-    Mustang: {
-      "2015-2020": { width: 48.5, height: 22.0, depth: 15.0 },
-      "2021-2024": { width: 49.0, height: 22.5, depth: 15.5 },
+    "Mustang": {
+      "2015-2020": { "width": 48.5, "height": 22.0, "depth": 15.0 },
+      "2021-current": { "width": 49.0, "height": 22.5, "depth": 15.5 },
     },
-    Charger: {
-      "2011-2020": { width: 46.5, height: 21.0, depth: 16.0 },
-      "2021-2024": { width: 47.0, height: 21.5, depth: 16.5 },
+    "Charger": {
+      "2011-2020": { "width": 46.5, "height": 21.0, "depth": 16.0 },
+      "2021-current": { "width": 47.0, "height": 21.5, "depth": 16.5 },
     },
-    Dart: {
-      "2010-2018": { width: 27.5, height: 22.5, depth: 19.0 },
-      "2019-2024": { width: 28.0, height: 23.0, depth: 19.5 },
+    "Dart": {
+      "2010-2018": { "width": 27.5, "height": 22.5, "depth": 19.0 },
+      "2019-current": { "width": 28.0, "height": 23.0, "depth": 19.5 },
+    },
+    "Crosstrek": {
+      "2012-2016": { "width": 41, "height": 20, "depth": 22 },
+      "2016-current": { "width": 41, "height": 23.0, "depth": 19.5 },
     },
   },
 };
+
+
 
 let selectedCargoWidth, selectedCargoHeight, selectedCargoDepth;
 let found = false;
@@ -55,7 +65,13 @@ function updateModels() {
     makes[selectedMake].forEach((model) => {
       modelSelect.innerHTML += `<option value="${model}">${model}</option>`;
     });
+    // NEW ----
+    modelSelect.addEventListener("change", () => {
+      document.getElementById("year").disabled = modelSelect.value === "";
+    });
   }
+
+  
 
   const selectElement = document.getElementById("model");
   const inputYear = document.getElementById("year");
@@ -101,7 +117,12 @@ function updateDimensions() {
     let found = false;
 
     for (const range in modelDimensions) {
-      const [startYear, endYear] = range.split("-").map(Number);
+
+      //  NEW
+      let [startYear, endYear] = range.split("-").map((year) => 
+        year === "current" ? vehicleData.currentYear : parseInt(year)
+      );
+
       if (selectedYear >= startYear && selectedYear <= endYear) {
         const dimensions = modelDimensions[range];
 
@@ -248,6 +269,9 @@ function populateProductSearchResults(query) {
 function addProduct(box) {
   const selectedProducts = document.getElementById("selectedProducts");
 
+  const doesFit = checkProductFit(box, selectedCargoWidth, selectedCargoHeight, selectedCargoDepth);
+
+
   // If product doesn't exist, create a new list item
   const item = document.createElement("li");
   //   item.textContent = `${box.product_name} (${box.product_id}) - qty: 1`;
@@ -272,3 +296,45 @@ function addProduct(box) {
 document.getElementById("productSearch").addEventListener("input", (event) => {
   populateProductSearchResults(event.target.value);
 });
+
+
+function checkProductFit(product, cargoWidth, cargoHeight, cargoDepth) {
+  console.log("Checking fit for:", product);
+  console.log("Cargo dimensions:", cargoWidth, cargoHeight, cargoDepth);
+
+  let remainingWidth = cargoWidth;
+  let remainingHeight = cargoHeight;
+  let remainingDepth = cargoDepth;
+
+  // Check if product fits completely
+  if (product.width <= remainingWidth && product.height <= remainingHeight && product.depth <= remainingDepth) {
+    remainingWidth -= product.width;
+    remainingHeight -= product.height;
+    remainingDepth -= product.depth;
+    console.log("Product fits completely");
+    console.log("Remaining dimensions:", {width: remainingWidth, height: remainingHeight, depth: remainingDepth});
+    return "fits";
+  }
+
+  // Check if product fits but hangs out (depth > cargo depth is okay)
+  if (product.width <= cargoWidth && product.height <= cargoHeight) {
+    remainingWidth = Math.max(0, cargoWidth - product.width);
+    remainingHeight = Math.max(0, cargoHeight - product.height);
+    remainingDepth = Math.max(0, cargoDepth - product.depth);
+    
+    if (product.depth > cargoDepth) {
+      console.log("Product fits but hangs out (depth exceeds cargo depth)");
+      console.log("Remaining dimensions:", {width: remainingWidth, height: remainingHeight, depth: 0});
+      return "hangs_out_depth";
+    } else {
+      console.log("Product fits but hangs out");
+      console.log("Remaining dimensions:", {width: remainingWidth, height: remainingHeight, depth: remainingDepth});
+      return "hangs_out";
+    }
+  }
+
+  // If it doesn't fit in width or height
+  console.log("Product does not fit");
+  console.log("Remaining dimensions unchanged:", {width: cargoWidth, height: cargoHeight, depth: cargoDepth});
+  return "does_not_fit";
+}
