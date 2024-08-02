@@ -336,29 +336,33 @@ color: var(--green);
     transform: scale(1.05);
 }
 
-/* .product-search-item:before {
-    font-family: FontAwesome;
-    font-size:x-large;
-    content: "\f00c  \0020 \f466";
-    margin-left: -2px;
-    color: var(--green);
-} */
 
 /* prepend fit status for products*/
 
+/* check f00c */
+/* space \0020 */
+/* box f466 */
 .product-search-item.fits:before {
-    content: "\f00c"; /* Replace with your desired icon code */
-    color: green;
+    font-family: FontAwesome;
+    font-size:x-large;
+    content: "\f00c  \0020 \f466"; /* Replace with your desired icon code */
+    color: var(--green);
   }
   
+  /* warning f071 */
   .product-search-item.HangsOut:before {
-    content: "\f057"; /* Replace with your desired icon code */
-    color: orange;
+    font-family: FontAwesome;
+    font-size:x-large;
+    content: "\f071  \0020 \f466"; /* Replace with your desired icon code */
+    color: #C88139;
   }
   
+  /* error circle f06a */
   .product-search-item.noFit:before {
-    content: "\f059"; /* Replace with your desired icon code */
-    color: red;
+    font-family: FontAwesome;
+    font-size:x-large;
+    content: "\f06a  \0020 \f466"; /* Replace with your desired icon code */
+    color: #C60610;
   }
 
 /* responsive */
