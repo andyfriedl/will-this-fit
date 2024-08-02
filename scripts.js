@@ -1,5 +1,6 @@
 const d = new Date();
-// console.log(d.getFullYear());
+let carDimensions = {};
+
 const vehicleData = {
   "currentYear": d.getFullYear(),
   "makes": {
@@ -87,7 +88,6 @@ function updateModels() {
 
 }
 
-
 function updateDimensions() {
   const modelSelect = document.getElementById("model");
   const makeSelect = document.getElementById("make");
@@ -134,13 +134,10 @@ function updateDimensions() {
           "  cargo area = " +
           JSON.stringify(modelDimensions[range]) + "</div>"; // Display dimensions as JSON for clarity
 
-        selectedCargoWidth = dimensions.width;
-        selectedCargoHeight = dimensions.height;
-        selectedCargoDepth = dimensions.depth;
 
-        // console.log("selectedCargoWidth:", dimensions.width);
-        // console.log("selectedCargoHeight:", selectedCargoHeight);
-        // console.log("selectedCargoDepth:", selectedCargoDepth);
+        // setCarDimensions make, model, height, width, depth
+        setCarDimensions(selectedMake, selectedModel, dimensions.height, dimensions.width, dimensions.depth);
+
         found = true;
 
         break;
@@ -179,7 +176,7 @@ function simulateEnterKey() {
   document.dispatchEvent(event);
 }
 
-// -----================== search ==================----------
+// -----================== product search ==================----------
 
 const boxes = [
   {
@@ -213,9 +210,9 @@ const boxes = [
   {
     product_id: 40104294,
     product_name: "LACK",
-    width: 25.25,
+    width: 11.25,
     height: 2.5,
-    depth: 35.75,
+    depth: 12.75,
   },
   {
     product_id: 20470047,
@@ -266,10 +263,37 @@ function populateProductSearchResults(query) {
   resultsDiv.prepend(fragment);
 }
 
+function setCarDimensions(make, model, height, width, depth) {
+  carDimensions = {
+    make: make,
+    model: model,
+    remainingHeight: height,
+    remainingWidth: width,
+    remainingDepth: depth
+  };
+}
+
 function addProduct(box) {
   const selectedProducts = document.getElementById("selectedProducts");
+  
+  
+  
+  
+  console.log(String(box.product_name));
+  console.log(String(box.product_id));
+  const fitResult = checkFit(box);
+  console.log(fitResult.status);
 
-  const doesFit = checkProductFit(box, selectedCargoWidth, selectedCargoHeight, selectedCargoDepth);
+ 
+
+//   // To set the state to 'ok'
+// productSearchItem.classList.add('ok');
+// productSearchItem.classList.remove('warning', 'error');
+
+// // To set the state to 'warning'
+// productSearchItem.classList.add('warning');
+// productSearchItem.classList.remove('ok', 'error');
+
 
 
   // If product doesn't exist, create a new list item
@@ -280,13 +304,20 @@ function addProduct(box) {
   item.dataset.quantity = 1;
   item.classList.add("product-search-item");
 
+  if (fitResult.status == "Fits") {
+    item.classList.add("fits");
+  } else if (fitResult.status == "Hangs out") {
+    item.classList.add("HangsOut");
+  } else if (fitResult.status == "Doesn't fit") {
+    item.classList.add("noFit");
+  }
+
   const removeButton = document.createElement("button");
   removeButton.className = "removeButton";
   removeButton.innerHTML = '<i class="fa-solid fa-xmark "></i>';
   removeButton.addEventListener("click", () => {
     selectedProducts.removeChild(item);
   });
-  console.log("after existingItem ");
   item.appendChild(removeButton);
 
   // Prepend the new item to the selected products list
@@ -297,44 +328,34 @@ document.getElementById("productSearch").addEventListener("input", (event) => {
   populateProductSearchResults(event.target.value);
 });
 
+function checkFit(product) {
 
-function checkProductFit(product, cargoWidth, cargoHeight, cargoDepth) {
-  console.log("Checking fit for:", product);
-  console.log("Cargo dimensions:", cargoWidth, cargoHeight, cargoDepth);
+  const orientations = [
+    [product.height, product.width, product.depth],
+    [product.height, product.depth, product.width],
+    [product.width, product.height, product.depth],
+    [product.width, product.depth, product.height],
+    [product.depth, product.height, product.width],
+    [product.depth, product.width, product.height]
+  ];
 
-  let remainingWidth = cargoWidth;
-  let remainingHeight = cargoHeight;
-  let remainingDepth = cargoDepth;
-
-  // Check if product fits completely
-  if (product.width <= remainingWidth && product.height <= remainingHeight && product.depth <= remainingDepth) {
-    remainingWidth -= product.width;
-    remainingHeight -= product.height;
-    remainingDepth -= product.depth;
-    console.log("Product fits completely");
-    console.log("Remaining dimensions:", {width: remainingWidth, height: remainingHeight, depth: remainingDepth});
-    return "fits";
-  }
-
-  // Check if product fits but hangs out (depth > cargo depth is okay)
-  if (product.width <= cargoWidth && product.height <= cargoHeight) {
-    remainingWidth = Math.max(0, cargoWidth - product.width);
-    remainingHeight = Math.max(0, cargoHeight - product.height);
-    remainingDepth = Math.max(0, cargoDepth - product.depth);
-    
-    if (product.depth > cargoDepth) {
-      console.log("Product fits but hangs out (depth exceeds cargo depth)");
-      console.log("Remaining dimensions:", {width: remainingWidth, height: remainingHeight, depth: 0});
-      return "hangs_out_depth";
-    } else {
-      console.log("Product fits but hangs out");
-      console.log("Remaining dimensions:", {width: remainingWidth, height: remainingHeight, depth: remainingDepth});
-      return "hangs_out";
+  for (const [h, w, d] of orientations) {
+    if (h <= carDimensions.remainingHeight && w <= carDimensions.remainingWidth) {
+      if (d <= carDimensions.remainingDepth) {
+        // Update remaining space
+        carDimensions.remainingHeight -= h;
+        carDimensions.remainingWidth -= w;
+        carDimensions.remainingDepth -= d;
+        return { status: "Fits", hangingDepth: 0 };
+      } else {
+        // Update remaining space for hanging out case
+        carDimensions.remainingHeight -= h;
+        carDimensions.remainingWidth -= w;
+        carDimensions.remainingDepth = 0;
+        return { status: "Hangs out", hangingDepth: d - carDimensions.remainingDepth };
+      }
     }
   }
 
-  // If it doesn't fit in width or height
-  console.log("Product does not fit");
-  console.log("Remaining dimensions unchanged:", {width: cargoWidth, height: cargoHeight, depth: cargoDepth});
-  return "does_not_fit";
+  return { status: "Doesn't fit", hangingDepth: null };
 }
