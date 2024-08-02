@@ -1,6 +1,28 @@
 const d = new Date();
 let carDimensions = {};
 
+var imageUrls = [
+  "images/YQAAOTVzRJAEpGh-IcK9D.png",
+  "images/1702408969546.png",
+  "images/cgq21xNFhcyjS_Avbq2CAw1.png",
+  "images/38u_VKoJQcMz4AZXjrap0.png",
+  // Add more image URLs here
+];
+
+function displayRandomImage() {
+  const randomIndex = Math.floor(Math.random() * imageUrls.length);
+  const imageUrl = imageUrls[randomIndex];
+
+  // Get the image element by its ID
+  const carImage = document.getElementById("car-image");
+
+  // Set the src attribute of the image element to the random image URL
+  carImage.src = imageUrl;
+}
+
+// Call the function to display a random image initially
+displayRandomImage();
+
 const vehicleData = {
   "currentYear": d.getFullYear(),
   "makes": {
