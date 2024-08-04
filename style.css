@@ -423,8 +423,8 @@ color: var(--green);
     display: flex; /* Make the button a flex container */
   justify-content: center; /* Center content horizontally */
   align-items: center;
-    width: 5vh;
-    height: 5vh;
+    width: 4vh;
+    height: 4vh;
     cursor: pointer;
 
 }
