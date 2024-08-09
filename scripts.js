@@ -1,11 +1,16 @@
 const d = new Date();
 let carDimensions = {};
 
+
 var imageUrls = [
   "images/YQAAOTVzRJAEpGh-IcK9D.png",
   "images/1702408969546.png",
   "images/cgq21xNFhcyjS_Avbq2CAw1.png",
   "images/38u_VKoJQcMz4AZXjrap0.png",
+  "images/jeBxrAkADPZMEQzTO6zrk.jpeg",
+  "images/lzsFHQAq5UXvNk2k2gBir.png",
+  "images/IAEIWXrM5l-4B3nMlXOVc.png",
+  "images/5WjmH0NSM2zasezOQ3pw5.png",
   // Add more image URLs here
 ];
 

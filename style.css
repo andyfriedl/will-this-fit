@@ -63,6 +63,13 @@ h6 {
     font-style: normal;
 }
 
+.headline {
+    font-size: clamp(2.5rem, 7.5vw, 7.5rem);
+    /* line-height: 1.2; */
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
 body {
     background-color: var(--body-bg);
     font-family: "Playfair Display", serif;
@@ -77,8 +84,8 @@ body {
 }
 
 h1 {
-    color: var(--text-color);
-    font-size: 7em;
+    /* color: var(--text-color);
+    font-size: 7em; */
     margin-bottom: 20px;
     margin-top: -20px;
 }
@@ -194,8 +201,11 @@ button {
 
 
 .car-image {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 p {
@@ -213,7 +223,7 @@ color: var(--green);
 .box_error {
     color: #C60610;
 }
-.image-text-container {
+.hero-text-container {
     display: grid;
     grid-template-columns: 1fr 2fr; /* Ensures image and text content are side by side */
     align-items: start; /* Align items at the top */
@@ -222,20 +232,20 @@ color: var(--green);
 }
 
 /* Add padding and margin adjustments for the paragraph and list */
-.image-text-container p,
-.image-text-container ul {
+.hero-text-container p,
+.hero-text-container ul {
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
 }
 
 /* Center the ul within its container while keeping the text left-aligned */
-.image-text-container ul {
+.hero-text-container ul {
     list-style-type: none; /* Remove bullet points */
     display: inline-block; /* Make the ul inline-block to center it */
     text-align: left; /* Left-align the text inside the ul */
 }
 
-.image-text-container li {
+.hero-text-container li {
     width: 100%; /* Make sure each li takes the full width */
     text-align: left; /* Left align the text within each li */
     margin-bottom: 10px; /* Add some space between list items */
@@ -304,6 +314,7 @@ color: var(--green);
     list-style: none;
     padding: 0;
     width: 100%;
+  
 }
 
 #selectedProducts li {
@@ -396,23 +407,23 @@ color: var(--green);
         width: 100%;
     }
 
-    .image-text-container {
+    .hero-text-container {
         grid-template-columns: 1fr; /* Change to a single column layout */
         text-align: center; /* Center the text content in smaller screens */
     }
 
-    .image-text-container img {
+    .hero-text-container img {
         display: block; /* Ensure the image is a block element */
         margin: 0 auto; /* Center the image horizontally */
         width: 40%; /* Make the image take the full width of its container */
         height: auto; /* Maintain aspect ratio */
     }
 
-    .image-text-container p {
+    .hero-text-container p {
         text-align: center;
     }
 
-    .image-text-container ul {
+    .hero-text-container ul {
         text-align: left; /* Align text to the left for readability */
         margin: 0 auto; /* Center the text block within the container */
         max-width: 90%; /* Optional: Limit the width of the text block */
