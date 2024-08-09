@@ -11,6 +11,7 @@ var imageUrls = [
   "images/lzsFHQAq5UXvNk2k2gBir.png",
   "images/IAEIWXrM5l-4B3nMlXOVc.png",
   "images/5WjmH0NSM2zasezOQ3pw5.png",
+  "images/zr2xtR1etHptX2H_0PW01.png"
   // Add more image URLs here
 ];
 
