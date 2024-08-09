@@ -397,6 +397,13 @@ color: var(--green);
         font-size: 8vmin;
     }
 
+    .car-image {
+        max-width: 30%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     /* p {
         font-size: 2.9vmin;
     } */
@@ -412,12 +419,12 @@ color: var(--green);
         text-align: center; /* Center the text content in smaller screens */
     }
 
-    .hero-text-container img {
-        display: block; /* Ensure the image is a block element */
-        margin: 0 auto; /* Center the image horizontally */
-        width: 40%; /* Make the image take the full width of its container */
-        height: auto; /* Maintain aspect ratio */
-    }
+    /* .hero-text-container img {
+        display: block;  
+        margin: 0 auto;  
+        width: 40%;  
+        height: auto;  
+    } */
 
     .hero-text-container p {
         text-align: center;
