@@ -254,7 +254,7 @@ color: var(--green);
 .left-column,
 .right-column {
     width: 48%;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 /* vehicle */
@@ -279,6 +279,9 @@ color: var(--green);
     padding: 10px;
     
 }
+.dimensions-placeholder {
+    color: rgba(0, 0, 0, 0.3)
+}
 
 .vehicle-selector select,
 .vehicle-selector input,
@@ -291,23 +294,39 @@ color: var(--green);
 
 .search-results {
     position: absolute;
-    top: 100%;
+    border-radius: 1px;
+    /* border: 2px solid var(--green); */
+    bottom: 100%;
     left: 0;
     width: 100%;
+    z-index: 1000;
     overflow-y: auto;
-    background-color: var(--search-result-bg);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 2;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .search-results div {
     padding: 10px;
+    border-left: 6px solid rgba(162, 232, 219, .9);
+    border-right: 6px solid rgba(162, 232, 219, .9);
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
 
+.search-results > div:first-child {
+    border-top: 6px solid rgba(162, 232, 219, .9);
+}
+
+.search-results > div:last-child {
+    border-bottom: 6px solid rgba(162, 232, 219, .9);
+}
+
+
 .search-results div:hover {
-    background-color: #f0f0f0;
+    /* border: 1px solid var(--border-color); */
+    background-color: rgba(160, 229, 216, 1);
+    color: black;
 }
 
 #selectedProducts {
@@ -324,7 +343,7 @@ color: var(--green);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 4px;
+    border-radius: 5px;
     background-color: var(--search-result-bg);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }

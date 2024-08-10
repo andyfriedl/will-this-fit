@@ -4,14 +4,16 @@ let carDimensions = {};
 
 var imageUrls = [
   "images/YQAAOTVzRJAEpGh-IcK9D.png",
-  "images/1702408969546.png",
   "images/cgq21xNFhcyjS_Avbq2CAw1.png",
   "images/38u_VKoJQcMz4AZXjrap0.png",
   "images/jeBxrAkADPZMEQzTO6zrk.jpeg",
   "images/lzsFHQAq5UXvNk2k2gBir.png",
   "images/IAEIWXrM5l-4B3nMlXOVc.png",
   "images/5WjmH0NSM2zasezOQ3pw5.png",
-  "images/zr2xtR1etHptX2H_0PW01.png"
+  "images/zr2xtR1etHptX2H_0PW01.png",
+  "images/Rt34c7EfssvUwBxrhuqy3.png",
+  "images/8o4zJp0Qr-NQQIOczglCP.png",
+  "images/Ei5cp7eAVVm9I_aZtKiVt.png"
   // Add more image URLs here
 ];
 
@@ -86,7 +88,7 @@ function updateModels() {
   document.getElementById("year").disabled = true;
   document.getElementById("year").value = "";
   document.getElementById("error").textContent = "";
-  document.getElementById("dimensions").textContent = "";
+  document.getElementById("dimensions").innerHTML = '<div class="dimensions-placeholder">Make Model cargo area = {"width":...,"height":...,"depth":...}</div>';
 
   modelSelect.innerHTML = '<option value="">Model</option>';
 
@@ -303,31 +305,14 @@ function setCarDimensions(make, model, height, width, depth) {
 
 function addProduct(box) {
   const selectedProducts = document.getElementById("selectedProducts");
-  
-  
-  
-  
-  console.log(String(box.product_name));
-  console.log(String(box.product_id));
+
   const fitResult = checkFit(box);
   console.log(fitResult.status);
-
- 
-
-//   // To set the state to 'ok'
-// productSearchItem.classList.add('ok');
-// productSearchItem.classList.remove('warning', 'error');
-
-// // To set the state to 'warning'
-// productSearchItem.classList.add('warning');
-// productSearchItem.classList.remove('ok', 'error');
-
-
 
   // If product doesn't exist, create a new list item
   const item = document.createElement("li");
   //   item.textContent = `${box.product_name} (${box.product_id}) - qty: 1`;
-  item.textContent = `${box.product_name} (${box.product_id})`;
+  item.innerHTML = `${box.product_name} ${box.product_id} = {width: "${box.width}", height: "${box.height}", depth: "${box.depth}"}`;
   item.dataset.boxId = box.product_id;
   item.dataset.quantity = 1;
   item.classList.add("product-search-item");
