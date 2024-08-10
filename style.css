@@ -198,6 +198,10 @@ button {
 
 }
 
+.fa-arrow-right {
+    transform: rotate(-25deg); /* Rotate the icon by 90 degrees */
+}
+
 
 
 .car-image {
@@ -421,6 +425,10 @@ color: var(--green);
         height: auto;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .fa-arrow-right {
+        transform: rotate(90deg); /* Rotate the icon by 90 degrees */
     }
 
     /* p {
