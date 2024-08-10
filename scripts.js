@@ -1,36 +1,33 @@
-const d = new Date();
+const d = new Date(); // Set the current year in the car data
 let carDimensions = {};
+let selectedCargoWidth, selectedCargoHeight, selectedCargoDepth;
 
-
-var imageUrls = [
+// Car image url's
+let imageUrls = [
   "images/YQAAOTVzRJAEpGh-IcK9D.png",
   "images/cgq21xNFhcyjS_Avbq2CAw1.png",
   "images/38u_VKoJQcMz4AZXjrap0.png",
-  "images/jeBxrAkADPZMEQzTO6zrk.jpeg",
+  "images/jeBxrAkADPZMEQzTO6zrk.png",
   "images/lzsFHQAq5UXvNk2k2gBir.png",
   "images/IAEIWXrM5l-4B3nMlXOVc.png",
   "images/5WjmH0NSM2zasezOQ3pw5.png",
   "images/zr2xtR1etHptX2H_0PW01.png",
   "images/Rt34c7EfssvUwBxrhuqy3.png",
   "images/8o4zJp0Qr-NQQIOczglCP.png",
-  "images/Ei5cp7eAVVm9I_aZtKiVt.png"
-  // Add more image URLs here
+  "images/Ei5cp7eAVVm9I_aZtKiVt.png",
+  "images/yHkElSRS711NusxLjqehq.png",
+  "images/V7Fu5gSzLckakf3ZkoQYp.png"
 ];
 
+// Display a random car image on page load because it's fun
 function displayRandomImage() {
   const randomIndex = Math.floor(Math.random() * imageUrls.length);
-  const imageUrl = imageUrls[randomIndex];
-
-  // Get the image element by its ID
   const carImage = document.getElementById("car-image");
-
-  // Set the src attribute of the image element to the random image URL
-  carImage.src = imageUrl;
+  carImage.src = imageUrls[randomIndex];
 }
-
-// Call the function to display a random image initially
 displayRandomImage();
 
+// Temp vehicle test data
 const vehicleData = {
   "currentYear": d.getFullYear(),
   "makes": {
@@ -71,51 +68,41 @@ const vehicleData = {
   },
 };
 
-
-
-let selectedCargoWidth, selectedCargoHeight, selectedCargoDepth;
-let found = false;
-
 const { makes, cargoDimensions } = vehicleData;
 
+// This function updates the model options based on the selected make,
+// initializes form elements, and manages the state of the year input field.
 function updateModels() {
   const makeSelect = document.getElementById("make");
   const modelSelect = document.getElementById("model");
   const selectedMake = makeSelect.value;
-  const selectedModel = modelSelect.value;
-  // here
+
+  // Initialize the selects and inputs with default values and states on page load
   document.getElementById("productSearch").disabled = true;
   document.getElementById("year").disabled = true;
   document.getElementById("year").value = "";
   document.getElementById("error").textContent = "";
   document.getElementById("dimensions").innerHTML = '<div class="dimensions-placeholder">Make Model cargo area = {"width":...,"height":...,"depth":...}</div>';
-
   modelSelect.innerHTML = '<option value="">Model</option>';
 
+  // Populate model select after make select
   if (selectedMake) {
     makes[selectedMake].forEach((model) => {
       modelSelect.innerHTML += `<option value="${model}">${model}</option>`;
     });
-    // NEW ----
+
+    // Enable year input if there is a valid model value
     modelSelect.addEventListener("change", () => {
-      document.getElementById("year").disabled = modelSelect.value === "";
+      const yearInput = document.getElementById("year");
+      yearInput.disabled = modelSelect.value === "";
+      if (!yearInput.disabled) yearInput.value = "";
     });
   }
+}
 
-  
-
-  const selectElement = document.getElementById("model");
-  const inputYear = document.getElementById("year");
-
-  selectElement.addEventListener("change", () => {
-    if (selectElement.value !== "") {
-      inputYear.disabled = false;
-      inputYear.value = "";
-    } else {
-      inputYear.disabled = true;
-    }
-  });
-
+// Error function
+function showError(message) {
+  return `<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: ${message}</div>`;
 }
 
 function updateDimensions() {
@@ -125,34 +112,36 @@ function updateDimensions() {
   const dimensionsDiv = document.getElementById("dimensions");
   const selectedModel = modelSelect.value;
   const selectedMake = makeSelect.value;
-  const selectedYearString = yearInput.value; // Get the value as a string
+  const selectedYearString = yearInput.value;
 
   // Check year is a valid 4-digit number
   if (!/^(19|20)\d{2}$/.test(selectedYearString)) {
     dimensionsDiv.textContent = "";
-    dimensionsDiv.innerHTML +=  "<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: Please enter a valid 4-digit year</div>";
+    dimensionsDiv.innerHTML += showError("Please enter a valid 4-digit year");
+
     yearInput.value = ""; // Clear the input field
     yearInput.focus(); // Set focus back to the input field
     document.getElementById("productSearch").disabled = true;
-    return; // Exit function if is invalid
+    return; // Exit if is invalid
   }
 
-  const selectedYear = parseInt(selectedYearString); // Convert to integer
+  const selectedYear = parseInt(selectedYearString); 
   dimensionsDiv.textContent = "";
 
   document.getElementById("productSearch").disabled = true;
 
   if (selectedModel && selectedYear) {
     const modelDimensions = cargoDimensions[selectedModel];
-    let found = false;
+    let makeModelFound = false;
 
     for (const range in modelDimensions) {
 
-      //  NEW
+      // Parses year range string into startYear and endYear, handling "current" year values.
       let [startYear, endYear] = range.split("-").map((year) => 
         year === "current" ? vehicleData.currentYear : parseInt(year)
       );
 
+      // If valid year, display cargo dimensions
       if (selectedYear >= startYear && selectedYear <= endYear) {
         const dimensions = modelDimensions[range];
 
@@ -164,20 +153,16 @@ function updateDimensions() {
           "  cargo area = " +
           JSON.stringify(modelDimensions[range]) + "</div>"; // Display dimensions as JSON for clarity
 
-
-        // setCarDimensions make, model, height, width, depth
         setCarDimensions(selectedMake, selectedModel, dimensions.height, dimensions.width, dimensions.depth);
 
-        found = true;
-
+        makeModelFound = true;
         break;
       }
     }
 
-    // enable year after make and model
-    if (!found) {
-      dimensionsDiv.innerHTML +=  "<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: Selected year is out of range.</div>";
-      console.log("error");
+    // If year selected is not in a valid range of car data, show an error
+    if (!makeModelFound) {
+      dimensionsDiv.innerHTML += showError(" Error: Selected year is out of range.");
       document.getElementById("productSearch").disabled = true;
     } else {
       document.getElementById("productSearch").disabled = false;
@@ -188,12 +173,14 @@ function updateDimensions() {
 // Populate makes on page load and call updateModels
 document.addEventListener("DOMContentLoaded", () => {
   const makeSelect = document.getElementById("make");
+
   Object.keys(makes).forEach((make) => {
     makeSelect.innerHTML += `<option value="${make}">${make}</option>`;
   });
-  updateModels(); // Call updateModels here
+  updateModels(); 
 });
 
+// Simulate Enter Key for the year search button
 function simulateEnterKey() {
   const event = new KeyboardEvent("keydown", {
     bubbles: true,
@@ -206,8 +193,7 @@ function simulateEnterKey() {
   document.dispatchEvent(event);
 }
 
-// -----================== product search ==================----------
-
+// Temp box test data
 const boxes = [
   {
     product_id: 66666666,
@@ -253,6 +239,7 @@ const boxes = [
   },
 ];
 
+// Auto populate product search results when typing in the product search input
 function populateProductSearchResults(query) {
   const resultsDiv = document.getElementById("productSearchResults");
   resultsDiv.innerHTML = "";
@@ -261,7 +248,7 @@ function populateProductSearchResults(query) {
     return;
   }
 
-  // Filter boxes based on product name or id
+  // Filter box search results based on product name or id
   const filteredBoxes = boxes.filter((box) => {
     return (
       box.product_name.toLowerCase().includes(query.toLowerCase()) ||
@@ -269,14 +256,15 @@ function populateProductSearchResults(query) {
     );
   });
 
+  // Display error if no product found in search
   if (filteredBoxes.length === 0) {
-    resultsDiv.innerHTML =
-      "<div> <i class='box_error fas fa-exclamation-triangle'></i> No products found</div>";
+    resultsDiv.innerHTML += showError(" No products found");
     return;
   }
 
   const fragment = document.createDocumentFragment();
 
+  // Create and display product search results, add click handling for selection and clearing input
   filteredBoxes.forEach((box) => {
     const div = document.createElement("div");
     div.textContent = `${box.product_name} (${box.product_id})`;
@@ -293,6 +281,7 @@ function populateProductSearchResults(query) {
   resultsDiv.prepend(fragment);
 }
 
+// Set the car's make, model, and available dimensions (height, width, depth)
 function setCarDimensions(make, model, height, width, depth) {
   carDimensions = {
     make: make,
@@ -303,20 +292,18 @@ function setCarDimensions(make, model, height, width, depth) {
   };
 }
 
+// Add a product to the selected list with fit status, and include a button for removal
 function addProduct(box) {
   const selectedProducts = document.getElementById("selectedProducts");
+  const fitResult = checkFit(box); // returns fit status: fits, hangs out, does not fit
+  const item = document.createElement("li"); // Create User selected products
 
-  const fitResult = checkFit(box);
-  console.log(fitResult.status);
-
-  // If product doesn't exist, create a new list item
-  const item = document.createElement("li");
-  //   item.textContent = `${box.product_name} (${box.product_id}) - qty: 1`;
+  // Build selected product html data element
   item.innerHTML = `${box.product_name} ${box.product_id} = {width: "${box.width}", height: "${box.height}", depth: "${box.depth}"}`;
   item.dataset.boxId = box.product_id;
-  item.dataset.quantity = 1;
   item.classList.add("product-search-item");
 
+  // Add the correct prepended class to the selected product element
   if (fitResult.status == "Fits") {
     item.classList.add("fits");
   } else if (fitResult.status == "Hangs out") {
@@ -325,6 +312,7 @@ function addProduct(box) {
     item.classList.add("noFit");
   }
 
+  // Remove selected product 
   const removeButton = document.createElement("button");
   removeButton.className = "removeButton";
   removeButton.innerHTML = '<i class="fa-solid fa-xmark "></i>';
@@ -337,12 +325,14 @@ function addProduct(box) {
   selectedProducts.prepend(item);
 }
 
+// get selected product search result value
 document.getElementById("productSearch").addEventListener("input", (event) => {
   populateProductSearchResults(event.target.value);
 });
 
+// Check fit based on box orientation allowing product depth to hang out of cargo area 
+// Todo Revisit remaining volume calc to use hangingDepth
 function checkFit(product) {
-
   const orientations = [
     [product.height, product.width, product.depth],
     [product.height, product.depth, product.width],
@@ -361,11 +351,18 @@ function checkFit(product) {
         carDimensions.remainingDepth -= d;
         return { status: "Fits", hangingDepth: 0 };
       } else {
-        // Update remaining space for hanging out case
+        // Subtract the product's height and width from the remaining space in the car
         carDimensions.remainingHeight -= h;
         carDimensions.remainingWidth -= w;
+      
+        // Calculate how much of the product's depth hangs out of the cargo area
+        const hangingDepth = d - carDimensions.remainingDepth;
+      
+        // Set the remaining depth to 0 since the product hangs out of the cargo area
         carDimensions.remainingDepth = 0;
-        return { status: "Hangs out", hangingDepth: d - carDimensions.remainingDepth };
+      
+        // Return the fit status as "Hangs out" along with the calculated hanging depth
+        return { status: "Hangs out", hangingDepth };
       }
     }
   }
