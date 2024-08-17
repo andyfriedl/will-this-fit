@@ -19,7 +19,7 @@ let imageUrls = [
   "images/V7Fu5gSzLckakf3ZkoQYp.png"
 ];
 
-// Display a random car image on page load because it's fun
+// -------------------- Display a random car image on page load because it's fun
 function displayRandomImage() {
   const randomIndex = Math.floor(Math.random() * imageUrls.length);
   const carImage = document.getElementById("car-image");
@@ -100,11 +100,12 @@ function updateModels() {
   }
 }
 
-// Error function
+// -------------------- Error function
 function showError(message) {
   return `<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: ${message}</div>`;
 }
 
+// -------------------- Validates selected year and displays cargo dimensions for the chosen car model.
 function updateDimensions() {
   const modelSelect = document.getElementById("model");
   const makeSelect = document.getElementById("make");
@@ -180,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateModels(); 
 });
 
-// Simulate Enter Key for the year search button
+// -------------------- Simulate Enter Key for the year search button
 function simulateEnterKey() {
   const event = new KeyboardEvent("keydown", {
     bubbles: true,
@@ -193,7 +194,7 @@ function simulateEnterKey() {
   document.dispatchEvent(event);
 }
 
-// Temp box test data
+// Temp box/product test data
 const boxes = [
   {
     product_id: 66666666,
@@ -237,9 +238,23 @@ const boxes = [
     height: 3.5,
     depth: 18.75,
   },
+  {
+    product_id: 10545500,
+    product_name: "TRÅDFRI",
+    width: 2,
+    height: 2,
+    depth: 4.5,
+  },
+  {
+    product_id: 10423184,
+    product_name: "BERGPALM",
+    width: 7.25,
+    height: 4.5,
+    depth: 11,
+  },
 ];
 
-// Auto populate product search results when typing in the product search input
+// -------------------- Auto populate product search results when typing in the product search input
 function populateProductSearchResults(query) {
   const resultsDiv = document.getElementById("productSearchResults");
   resultsDiv.innerHTML = "";
@@ -248,11 +263,15 @@ function populateProductSearchResults(query) {
     return;
   }
 
-  // Filter box search results based on product name or id
+  // Normalize the query by removing periods and converting special characters to their base equivalents
+  const normalizedQuery = query.replace(/\./g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+  // Filter box search results based on normalized product name or id
   const filteredBoxes = boxes.filter((box) => {
+    const normalizedProductName = box.product_name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     return (
-      box.product_name.toLowerCase().includes(query.toLowerCase()) ||
-      box.product_id.toString().includes(query)
+      normalizedProductName.includes(normalizedQuery) ||
+      box.product_id.toString().includes(normalizedQuery)
     );
   });
 
@@ -281,7 +300,7 @@ function populateProductSearchResults(query) {
   resultsDiv.prepend(fragment);
 }
 
-// Set the car's make, model, and available dimensions (height, width, depth)
+// -------------------- Set the car's make, model, and available dimensions (height, width, depth)
 function setCarDimensions(make, model, height, width, depth) {
   carDimensions = {
     make: make,
@@ -292,7 +311,7 @@ function setCarDimensions(make, model, height, width, depth) {
   };
 }
 
-// Add a product to the selected list with fit status, and include a button for removal
+// -------------------- Add a product to the selected list with fit status, and include a button for removal
 function addProduct(box) {
   const selectedProducts = document.getElementById("selectedProducts");
   const fitResult = checkFit(box); // returns fit status: fits, hangs out, does not fit
@@ -330,7 +349,7 @@ document.getElementById("productSearch").addEventListener("input", (event) => {
   populateProductSearchResults(event.target.value);
 });
 
-// Check fit based on box orientation allowing product depth to hang out of cargo area 
+// -------------------- Check fit based on box orientation allowing product depth to hang out of cargo area 
 // Todo Revisit remaining volume calc to use hangingDepth
 function checkFit(product) {
   const orientations = [
@@ -343,25 +362,23 @@ function checkFit(product) {
   ];
 
   for (const [h, w, d] of orientations) {
-    if (h <= carDimensions.remainingHeight && w <= carDimensions.remainingWidth) {
+
+    console.log(carDimensions.remainingWidth);
+    console.log(carDimensions.remainingHeight);
+    console.log(carDimensions.remainingDepth);
+
+    if (h <= carDimensions.remainingHeight && w <= carDimensions.remainingWidth) { 
       if (d <= carDimensions.remainingDepth) {
-        // Update remaining space
+        // If it fits completely, update the remaining space
         carDimensions.remainingHeight -= h;
         carDimensions.remainingWidth -= w;
         carDimensions.remainingDepth -= d;
         return { status: "Fits", hangingDepth: 0 };
       } else {
-        // Subtract the product's height and width from the remaining space in the car
+        // If it hangs out, only update the height and width, and calculate hanging depth
         carDimensions.remainingHeight -= h;
         carDimensions.remainingWidth -= w;
-      
-        // Calculate how much of the product's depth hangs out of the cargo area
         const hangingDepth = d - carDimensions.remainingDepth;
-      
-        // Set the remaining depth to 0 since the product hangs out of the cargo area
-        carDimensions.remainingDepth = 0;
-      
-        // Return the fit status as "Hangs out" along with the calculated hanging depth
         return { status: "Hangs out", hangingDepth };
       }
     }
@@ -369,3 +386,4 @@ function checkFit(product) {
 
   return { status: "Doesn't fit", hangingDepth: null };
 }
+
