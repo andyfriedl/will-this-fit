@@ -63,8 +63,16 @@ h6 {
     font-style: normal;
 }
 
+.lato-regular {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
 .about {
-    color: var(--secondary-color)
+    color: var(--secondary-color);
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
 }
 
 .headline {
@@ -174,7 +182,7 @@ button {
     z-index: 1;
     width: 80%;
     opacity: .98;
-    border-radius: 5px;
+    border-radius: 0px 0px 20px 20px;
 
 }
 
@@ -199,6 +207,9 @@ button {
     width: 100%;
     margin-top: 1px;
     flex-wrap: wrap;
+    border: 6px solid #eef8f6;
+    background-color: #eef8f6;
+    border-radius: 15px 15px 15px 15px;
 
 }
 
@@ -238,6 +249,8 @@ color: var(--green);
     align-items: start; /* Align items at the top */
     gap: 20px; /* Add some space between image and text content */
     border-radius: 5px;
+
+
 }
 
 /* Add padding and margin adjustments for the paragraph and list */
@@ -449,6 +462,8 @@ color: var(--green);
     .hero-text-container {
         grid-template-columns: 1fr; /* Change to a single column layout */
         text-align: center; /* Center the text content in smaller screens */
+        border: #28A745;
+        
     }
 
     /* .hero-text-container img {

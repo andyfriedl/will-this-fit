@@ -16,7 +16,11 @@ let imageUrls = [
   "images/8o4zJp0Qr-NQQIOczglCP.png",
   "images/Ei5cp7eAVVm9I_aZtKiVt.png",
   "images/yHkElSRS711NusxLjqehq.png",
-  "images/V7Fu5gSzLckakf3ZkoQYp.png"
+  "images/V7Fu5gSzLckakf3ZkoQYp.png",
+  "images/yeLNBYtnUvssUNDkV8-5y.png",
+  "images/Fe2NbKaxVIv9t42gIV.png",
+  "images/rjDOs9CftfqJ4y4cwAilO.png",
+  "images/2D1NdRVRa4emq_0-NC2a-.png"
 ];
 
 // -------------------- Display a random car image on page load because it's fun
