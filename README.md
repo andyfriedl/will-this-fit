@@ -1,6 +1,6 @@
 # Will This Fit In My Car
 
-![alt text](https://andyfriedl.github.io/will-this-fit/images/yHkElSRS711NusxLjqehq.png?raw=true)
+<img src="https://andyfriedl.github.io/will-this-fit/images/Ei5cp7eAVVm9I_aZtKiVt.png" alt="Will This Fit In My Car" height="300">
 
 
 Check if packages or boxes will fit in you car. The ultimate goal is to have a database of Ikea  packed product dimensions and a database of vehicle cargo area dimensions so that you can check the purchase products will fit inside, fit but hang out of the back or will not fit.
