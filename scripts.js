@@ -2,8 +2,8 @@ const d = new Date(); // Set the current year in the car data
 let carDimensions = {};
 let selectedCargoWidth, selectedCargoHeight, selectedCargoDepth;
 
-// Car image url's
-let imageUrls = [
+// Car image urls
+const imageUrls = [
   "images/YQAAOTVzRJAEpGh-IcK9D.png",
   "images/cgq21xNFhcyjS_Avbq2CAw1.png",
   "images/38u_VKoJQcMz4AZXjrap0.png",
@@ -24,50 +24,51 @@ let imageUrls = [
 ];
 
 // -------------------- Display a random car image on page load because it's fun
-function displayRandomImage() {
+const displayRandomImage = () => {
   const randomIndex = Math.floor(Math.random() * imageUrls.length);
   const carImage = document.getElementById("car-image");
   carImage.src = imageUrls[randomIndex];
 }
 displayRandomImage();
 
+
 // Temp vehicle test data
 const vehicleData = {
-  "currentYear": d.getFullYear(),
-  "makes": {
-    "Jeep": ["Wrangler", "Wrangler Unlimited"],
-    "Ford": ["F-150", "Mustang"],
-    "Dodge": ["Charger", "Dart"],
-    "Subaru": ["Crosstrek"],
+  currentYear: d.getFullYear(),
+  makes: {
+    Jeep: ["Wrangler", "Wrangler Unlimited"],
+    Ford: ["F-150", "Mustang"],
+    Dodge: ["Charger", "Dart"],
+    Subaru: ["Crosstrek"],
   },
-  "cargoDimensions": {
-    "Wrangler": {
-      "2007-2018": { "width": 31.7, "height": 22.7, "depth": 11.7 },
-      "2019-current": { "width": 32.0, "height": 22.0, "depth": 12.0 },
+  cargoDimensions: {
+    Wrangler: {
+      "2007-2018": { width: 31.7, height: 22.7, depth: 11.7 },
+      "2019-current": { width: 32.0, height: 22.0, depth: 12.0 },
     },
-    "Wrangler Unlimited": {
-      "2007-2018": { "width": 33.7, "height": 24.7, "depth": 13.7 },
-      "2019-current": { "width": 34.0, "height": 25.0, "depth": 14.0 },
+    WranglerUnlimited: {
+      "2007-2018": { width: 33.7, height: 24.7, depth: 13.7 },
+      "2019-current": { width: 34.0, height: 25.0, depth: 14.0 },
     },
-    "F-150": {
-      "2015-2020": { "width": 52.8, "height": 32.0, "depth": 18.0 },
-      "2021-current": { "width": 53.0, "height": 32.5, "depth": 18.5 },
+    F150: {
+      "2015-2020": { width: 52.8, height: 32.0, depth: 18.0 },
+      "2021-current": { width: 53.0, height: 32.5, depth: 18.5 },
     },
-    "Mustang": {
-      "2015-2020": { "width": 48.5, "height": 22.0, "depth": 15.0 },
-      "2021-current": { "width": 49.0, "height": 22.5, "depth": 15.5 },
+    Mustang: {
+      "2015-2020": { width: 48.5, height: 22.0, depth: 15.0 },
+      "2021-current": { width: 49.0, height: 22.5, depth: 15.5 },
     },
-    "Charger": {
-      "2011-2020": { "width": 46.5, "height": 21.0, "depth": 16.0 },
-      "2021-current": { "width": 47.0, "height": 21.5, "depth": 16.5 },
+    Charger: {
+      "2011-2020": { width: 46.5, height: 21.0, depth: 16.0 },
+      "2021-current": { width: 47.0, height: 21.5, depth: 16.5 },
     },
-    "Dart": {
-      "2010-2018": { "width": 27.5, "height": 22.5, "depth": 19.0 },
-      "2019-current": { "width": 28.0, "height": 23.0, "depth": 19.5 },
+    Dart: {
+      "2010-2018": { width: 27.5, height: 22.5, depth: 19.0 },
+      "2019-current": { width: 28.0, height: 23.0, depth: 19.5 },
     },
-    "Crosstrek": {
-      "2012-2016": { "width": 41, "height": 20, "depth": 22 },
-      "2016-current": { "width": 41, "height": 23.0, "depth": 19.5 },
+    Crosstrek: {
+      "2012-2016": { width: 41, height: 20, depth: 22 },
+      "2016-current": { width: 41, height: 23.0, depth: 19.5 },
     },
   },
 };
@@ -76,7 +77,7 @@ const { makes, cargoDimensions } = vehicleData;
 
 // This function updates the model options based on the selected make,
 // initializes form elements, and manages the state of the year input field.
-function updateModels() {
+const updateModels = () => {
   const makeSelect = document.getElementById("make");
   const modelSelect = document.getElementById("model");
   const selectedMake = makeSelect.value;
@@ -86,7 +87,8 @@ function updateModels() {
   document.getElementById("year").disabled = true;
   document.getElementById("year").value = "";
   document.getElementById("error").textContent = "";
-  document.getElementById("dimensions").innerHTML = '<div class="dimensions-placeholder">Make Model cargo area = {"width":...,"height":...,"depth":...}</div>';
+  document.getElementById("dimensions").innerHTML =
+    '<div class="dimensions-placeholder">Make Model cargo area = {"width":...,"height":...,"depth":...}</div>';
   modelSelect.innerHTML = '<option value="">Model</option>';
 
   // Populate model select after make select
@@ -102,15 +104,16 @@ function updateModels() {
       if (!yearInput.disabled) yearInput.value = "";
     });
   }
-}
+};
+
 
 // -------------------- Error function
-function showError(message) {
+const showError = (message) => {
   return `<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: ${message}</div>`;
-}
+};
 
 // -------------------- Validates selected year and displays cargo dimensions for the chosen car model.
-function updateDimensions() {
+const updateDimensions = () => {
   const modelSelect = document.getElementById("model");
   const makeSelect = document.getElementById("make");
   const yearInput = document.getElementById("year");
@@ -127,7 +130,7 @@ function updateDimensions() {
     yearInput.value = ""; // Clear the input field
     yearInput.focus(); // Set focus back to the input field
     document.getElementById("productSearch").disabled = true;
-    return; // Exit if is invalid
+    return; // Exit if invalid
   }
 
   const selectedYear = parseInt(selectedYearString); 
@@ -151,12 +154,7 @@ function updateDimensions() {
         const dimensions = modelDimensions[range];
 
         dimensionsDiv.innerHTML =
-        " <div> <i class='box_success fas fa-check box_success fa-lg'></i> " +
-          selectedMake +
-          " " +
-          selectedModel +
-          "  cargo area = " +
-          JSON.stringify(modelDimensions[range]) + "</div>"; // Display dimensions as JSON for clarity
+        ` <div> <i class='box_success fas fa-check box_success fa-lg'></i> ${selectedMake} ${selectedModel}  cargo area = ${JSON.stringify(modelDimensions[range])}</div>`; // Display dimensions as JSON for clarity
 
         setCarDimensions(selectedMake, selectedModel, dimensions.height, dimensions.width, dimensions.depth);
 
@@ -173,7 +171,7 @@ function updateDimensions() {
       document.getElementById("productSearch").disabled = false;
     }
   }
-}
+};
 
 // Populate makes on page load and call updateModels
 document.addEventListener("DOMContentLoaded", () => {
@@ -186,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // -------------------- Simulate Enter Key for the year search button
-function simulateEnterKey() {
+const simulateEnterKey = () => {
   const event = new KeyboardEvent("keydown", {
     bubbles: true,
     cancelable: true,
@@ -196,7 +194,7 @@ function simulateEnterKey() {
     charCode: 13,
   });
   document.dispatchEvent(event);
-}
+};
 
 // Temp box/product test data
 const boxes = [
@@ -257,9 +255,8 @@ const boxes = [
     depth: 11,
   },
 ];
-
 // -------------------- Auto populate product search results when typing in the product search input
-function populateProductSearchResults(query) {
+const populateProductSearchResults = (query) => {
   const resultsDiv = document.getElementById("productSearchResults");
   resultsDiv.innerHTML = "";
 
@@ -302,21 +299,21 @@ function populateProductSearchResults(query) {
   });
 
   resultsDiv.prepend(fragment);
-}
+};
 
 // -------------------- Set the car's make, model, and available dimensions (height, width, depth)
-function setCarDimensions(make, model, height, width, depth) {
+const setCarDimensions = (make, model, height, width, depth) => {
   carDimensions = {
     make: make,
     model: model,
     remainingHeight: height,
     remainingWidth: width,
-    remainingDepth: depth
+    remainingDepth: depth,
   };
-}
+};
 
 // -------------------- Add a product to the selected list with fit status, and include a button for removal
-function addProduct(box) {
+const addProduct = (box) => {
   const selectedProducts = document.getElementById("selectedProducts");
   const fitResult = checkFit(box); // returns fit status: fits, hangs out, does not fit
   const item = document.createElement("li"); // Create User selected products
@@ -327,11 +324,11 @@ function addProduct(box) {
   item.classList.add("product-search-item");
 
   // Add the correct prepended class to the selected product element
-  if (fitResult.status == "Fits") {
+  if (fitResult.status === "Fits") {
     item.classList.add("fits");
-  } else if (fitResult.status == "Hangs out") {
+  } else if (fitResult.status === "Hangs out") {
     item.classList.add("HangsOut");
-  } else if (fitResult.status == "Doesn't fit") {
+  } else if (fitResult.status === "Doesn't fit") {
     item.classList.add("noFit");
   }
 
@@ -346,7 +343,7 @@ function addProduct(box) {
 
   // Prepend the new item to the selected products list
   selectedProducts.prepend(item);
-}
+};
 
 // get selected product search result value
 document.getElementById("productSearch").addEventListener("input", (event) => {
@@ -355,23 +352,22 @@ document.getElementById("productSearch").addEventListener("input", (event) => {
 
 // -------------------- Check fit based on box orientation allowing product depth to hang out of cargo area 
 // Todo Revisit remaining volume calc to use hangingDepth
-function checkFit(product) {
+const checkFit = (product) => {
   const orientations = [
     [product.height, product.width, product.depth],
     [product.height, product.depth, product.width],
     [product.width, product.height, product.depth],
     [product.width, product.depth, product.height],
     [product.depth, product.height, product.width],
-    [product.depth, product.width, product.height]
+    [product.depth, product.width, product.height],
   ];
 
   for (const [h, w, d] of orientations) {
-
     console.log(carDimensions.remainingWidth);
     console.log(carDimensions.remainingHeight);
     console.log(carDimensions.remainingDepth);
 
-    if (h <= carDimensions.remainingHeight && w <= carDimensions.remainingWidth) { 
+    if (h <= carDimensions.remainingHeight && w <= carDimensions.remainingWidth) {
       if (d <= carDimensions.remainingDepth) {
         // If it fits completely, update the remaining space
         carDimensions.remainingHeight -= h;
@@ -389,5 +385,4 @@ function checkFit(product) {
   }
 
   return { status: "Doesn't fit", hangingDepth: null };
-}
-
+};
