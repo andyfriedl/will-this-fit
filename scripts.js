@@ -118,9 +118,9 @@ const updateDimensions = () => {
   const makeSelect = document.getElementById("make");
   const yearInput = document.getElementById("year");
   const dimensionsDiv = document.getElementById("dimensions");
-  const selectedModel = modelSelect.value;
-  const selectedMake = makeSelect.value;
-  const selectedYearString = yearInput.value;
+  const { value: selectedModel } = modelSelect;
+  const { value: selectedMake } = makeSelect;
+  const { value: selectedYearString } = yearInput;
 
   // Check year is a valid 4-digit number
   if (!/^(19|20)\d{2}$/.test(selectedYearString)) {
