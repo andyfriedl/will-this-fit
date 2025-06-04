@@ -42,31 +42,31 @@ const vehicleData = {
     Subaru: ["Crosstrek"],
   },
   cargoDimensions: {
-    Wrangler: {
+    "Wrangler": {
       "2007-2018": { width: 31.7, height: 22.7, depth: 11.7 },
       "2019-current": { width: 32.0, height: 22.0, depth: 12.0 },
     },
-    WranglerUnlimited: {
+    "Wrangler Unlimited": {
       "2007-2018": { width: 33.7, height: 24.7, depth: 13.7 },
       "2019-current": { width: 34.0, height: 25.0, depth: 14.0 },
     },
-    F150: {
+    "F-150": {
       "2015-2020": { width: 52.8, height: 32.0, depth: 18.0 },
       "2021-current": { width: 53.0, height: 32.5, depth: 18.5 },
     },
-    Mustang: {
+    "Mustang": {
       "2015-2020": { width: 48.5, height: 22.0, depth: 15.0 },
       "2021-current": { width: 49.0, height: 22.5, depth: 15.5 },
     },
-    Charger: {
+    "Charger": {
       "2011-2020": { width: 46.5, height: 21.0, depth: 16.0 },
       "2021-current": { width: 47.0, height: 21.5, depth: 16.5 },
     },
-    Dart: {
+    "Dart": {
       "2010-2018": { width: 27.5, height: 22.5, depth: 19.0 },
       "2019-current": { width: 28.0, height: 23.0, depth: 19.5 },
     },
-    Crosstrek: {
+    "Crosstrek": {
       "2012-2016": { width: 41, height: 20, depth: 22 },
       "2016-current": { width: 41, height: 23.0, depth: 19.5 },
     },
