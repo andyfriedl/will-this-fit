@@ -77,7 +77,6 @@ h6 {
 
 .headline {
     font-size: clamp(2.5rem, 7.5vw, 7.5rem);
-    /* line-height: 1.2; */
     overflow-wrap: break-word;
     hyphens: auto;
   }
@@ -92,12 +91,9 @@ body {
     height: 100vh;
     margin: 0;
     position: relative;
-    /* background: linear-gradient(90deg, var(--color-1) 0%, var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%, var(--color-4) 100%); */
 }
 
 h1 {
-    /* color: var(--text-color);
-    font-size: 7em; */
     margin-bottom: 20px;
     margin-top: -20px;
 }
@@ -105,6 +101,7 @@ h1 {
 p {
     font-size: 1.2em;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .btn {
@@ -123,7 +120,6 @@ p {
 }
 
 /*           inputs              */
-
 
 input:disabled {
     background-color: #ccc;
@@ -214,7 +210,7 @@ button {
 }
 
 .fa-arrow-right {
-    transform: rotate(-25deg); /* Rotate the icon by 90 degrees */
+    transform: rotate(-25deg);
 }
 
 
@@ -226,10 +222,6 @@ button {
     margin-left: auto;  
     margin-right: auto;  
     object-fit: contain; 
-}
-
-p {
-    text-align: center;
 }
 
 .box_success {
@@ -245,9 +237,9 @@ color: var(--green);
 }
 .hero-text-container {
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Ensures image and text content are side by side */
-    align-items: start; /* Align items at the top */
-    gap: 20px; /* Add some space between image and text content */
+    grid-template-columns: 1fr 2fr; 
+    align-items: start; 
+    gap: 20px; 
     border-radius: 5px;
 
 
@@ -256,27 +248,26 @@ color: var(--green);
 /* Add padding and margin adjustments for the paragraph and list */
 .hero-text-container p,
 .hero-text-container ul {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    margin: 0; 
+    padding: 0; 
 }
 
 /* Center the ul within its container while keeping the text left-aligned */
 .hero-text-container ul {
-    list-style-type: none; /* Remove bullet points */
-    display: inline-block; /* Make the ul inline-block to center it */
-    text-align: left; /* Left-align the text inside the ul */
+    list-style-type: none; 
+    display: inline-block; 
+    text-align: left; 
 }
 
 .hero-text-container li {
-    width: 100%; /* Make sure each li takes the full width */
-    text-align: left; /* Left align the text within each li */
-    margin-bottom: 10px; /* Add some space between list items */
+    width: 100%; 
+    text-align: left; 
+    margin-bottom: 10px;
 }
 
 .left-column,
 .right-column {
     width: 48%;
-    /* margin-bottom: 20px; */
 }
 
 /* vehicle */
@@ -317,7 +308,6 @@ color: var(--green);
 .search-results {
     position: absolute;
     border-radius: 1px;
-    /* border: 2px solid var(--green); */
     bottom: 100%;
     left: 0;
     width: 100%;
@@ -344,7 +334,6 @@ color: var(--green);
     border-bottom: 6px solid rgba(162, 232, 219, .9);
 }
 
-
 .search-results div:hover {
     /* border: 1px solid var(--border-color); */
     background-color: rgba(160, 229, 216, 1);
@@ -355,7 +344,6 @@ color: var(--green);
     list-style: none;
     padding: 0;
     width: 100%;
-  
 }
 
 #selectedProducts li {
@@ -380,7 +368,6 @@ color: var(--green);
     padding: 5px 10px;
     color: #fff;
     transition: background-color 0.3s, transform 0.3s;
-
 }
 
 .product-search-item button:hover {
@@ -390,14 +377,10 @@ color: var(--green);
 
 
 /* prepend fit status for products*/
-
-/* check f00c */
-/* space \0020 */
-/* box f466 */
 .product-search-item.fits:before {
     font-family: FontAwesome;
     font-size:x-large;
-    content: "\f00c"; /* Replace with your desired icon code */
+    content: "\f00c"; 
     color: var(--green);
   }
   
@@ -413,25 +396,17 @@ color: var(--green);
   .product-search-item.noFit:before {
     font-family: FontAwesome;
     font-size:x-large;
-    content: "\f06a"; /* Replace with your desired icon code   \0020*/
+    content: "\f06a"; 
     color: #C60610;
   }
 
 /* responsive */
 
-/* @media only screen and (max-width: 600px) {
-    body {
-      background-color: lightblue;
-    }
-  } */
-
 @media (max-width: 768px) {
-    body {
-        .container {
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
+    .container {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     h1 {
@@ -446,13 +421,8 @@ color: var(--green);
     }
 
     .fa-arrow-right {
-        transform: rotate(90deg); /* Rotate the icon by 90 degrees */
+        transform: rotate(90deg); 
     }
-
-    /* p {
-        font-size: 2.9vmin;
-    } */
-
 
     .left-column,
     .right-column {
@@ -460,33 +430,26 @@ color: var(--green);
     }
 
     .hero-text-container {
-        grid-template-columns: 1fr; /* Change to a single column layout */
-        text-align: center; /* Center the text content in smaller screens */
+        grid-template-columns: 1fr; 
+        text-align: center; 
         border: #28A745;
         
     }
-
-    /* .hero-text-container img {
-        display: block;  
-        margin: 0 auto;  
-        width: 40%;  
-        height: auto;  
-    } */
 
     .hero-text-container p {
         text-align: center;
     }
 
     .hero-text-container ul {
-        text-align: left; /* Align text to the left for readability */
-        margin: 0 auto; /* Center the text block within the container */
-        max-width: 90%; /* Optional: Limit the width of the text block */
+        text-align: left; 
+        margin: 0 auto;
+        max-width: 90%; 
     }
 }
 
 .removeButton {
-    display: flex; /* Make the button a flex container */
-  justify-content: center; /* Center content horizontally */
+    display: flex;
+  justify-content: center; 
   align-items: center;
     width: 4vh;
     height: 4vh;
@@ -495,33 +458,5 @@ color: var(--green);
 }
 
 .removeButton i {
-    font-size: 14px; /* Adjust font size as needed */
+    font-size: 14px;
   }
-
-
-
-/* .vehicle-selector {
-    position: relative;
-}
-
-.vehicle-selector select {
-    padding-left: 30px; 
- } */
-
-/* .vehicle-selector::before {
-    content: '\f1b9';
-   
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
-} */
-
-/* .font-awesome .fa {
-    font-family: "Font Awesome 5 Free", Open Sans;
-    font-weight: 501;
-} */
