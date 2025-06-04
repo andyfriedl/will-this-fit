@@ -121,6 +121,7 @@ const updateDimensions = () => {
   const { value: selectedModel } = modelSelect;
   const { value: selectedMake } = makeSelect;
   const { value: selectedYearString } = yearInput;
+  const sanitizedModel = selectedModel.replace(/[-\s]/g, "");
 
   // Check year is a valid 4-digit number
   if (!/^(19|20)\d{2}$/.test(selectedYearString)) {
@@ -139,7 +140,11 @@ const updateDimensions = () => {
   document.getElementById("productSearch").disabled = true;
 
   if (selectedModel && selectedYear) {
-    const modelDimensions = cargoDimensions[selectedModel];
+    const modelDimensions = cargoDimensions[sanitizedModel];
+    if (!modelDimensions) {
+      dimensionsDiv.innerHTML += showError(" Error: Model not found.");
+      return;
+    }
     let makeModelFound = false;
 
     for (const range in modelDimensions) {
