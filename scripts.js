@@ -165,7 +165,7 @@ const updateDimensions = () => {
 
     // If year selected is not in a valid range of car data, show an error
     if (!makeModelFound) {
-      dimensionsDiv.innerHTML += showError(" Error: Selected year is out of range.");
+      dimensionsDiv.innerHTML += showError(" Selected year is out of range.");
       document.getElementById("productSearch").disabled = true;
     } else {
       document.getElementById("productSearch").disabled = false;
