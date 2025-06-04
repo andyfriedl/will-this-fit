@@ -105,6 +105,7 @@ h1 {
 p {
     font-size: 1.2em;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .btn {
@@ -228,9 +229,6 @@ button {
     object-fit: contain; 
 }
 
-p {
-    text-align: center;
-}
 
 .box_success {
 color: var(--green);
