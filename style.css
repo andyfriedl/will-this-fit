@@ -424,12 +424,10 @@ color: var(--green);
   } */
 
 @media (max-width: 768px) {
-    body {
-        .container {
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
+    .container {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     h1 {
