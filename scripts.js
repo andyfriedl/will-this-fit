@@ -112,6 +112,11 @@ const showError = (message) => {
   return `<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: ${message}</div>`;
 };
 
+// -------------------- Normalize model names by removing spaces and common Unicode dashes
+const normalizeModelName = (model) => {
+  return model.replace(/[\s\u2010-\u2015\u2212\uFE58\uFE63\uFF0D-]/g, "");
+};
+
 // -------------------- Validates selected year and displays cargo dimensions for the chosen car model.
 const updateDimensions = () => {
   const modelSelect = document.getElementById("model");
@@ -121,7 +126,7 @@ const updateDimensions = () => {
   const { value: selectedModel } = modelSelect;
   const { value: selectedMake } = makeSelect;
   const { value: selectedYearString } = yearInput;
-  const sanitizedModel = selectedModel.replace(/[-\s]/g, "");
+  const sanitizedModel = normalizeModelName(selectedModel);
 
   // Check year is a valid 4-digit number
   if (!/^(19|20)\d{2}$/.test(selectedYearString)) {
