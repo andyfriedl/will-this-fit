@@ -46,11 +46,11 @@ const vehicleData = {
       "2007-2018": { width: 31.7, height: 22.7, depth: 11.7 },
       "2019-current": { width: 32.0, height: 22.0, depth: 12.0 },
     },
-    WranglerUnlimited: {
+    "Wrangler Unlimited": {
       "2007-2018": { width: 33.7, height: 24.7, depth: 13.7 },
       "2019-current": { width: 34.0, height: 25.0, depth: 14.0 },
     },
-    F150: {
+    "F-150": {
       "2015-2020": { width: 52.8, height: 32.0, depth: 18.0 },
       "2021-current": { width: 53.0, height: 32.5, depth: 18.5 },
     },
