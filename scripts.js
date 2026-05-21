@@ -1,6 +1,21 @@
 const d = new Date(); // Set the current year in the car data
-let carDimensions = {};
-let selectedCargoWidth, selectedCargoHeight, selectedCargoDepth;
+const appState = {
+  carDimensions: {},
+  isModelSelected: false,
+  isYearValid: false,
+  errorMessage: ""
+};
+
+const renderUI = () => {
+  document.getElementById("year").disabled = !appState.isModelSelected;
+
+  document.getElementById("productSearch").disabled = !appState.isYearValid;
+
+  const errorDiv = document.getElementById("error");
+  if (errorDiv) {
+    errorDiv.textContent = appState.errorMessage;
+  }
+};
 
 // Car image urls
 const imageUrls = [
@@ -76,34 +91,42 @@ const vehicleData = {
 const { makes, cargoDimensions } = vehicleData;
 
 // This function updates the model options based on the selected make,
-// initializes form elements, and manages the state of the year input field.
 const updateModels = () => {
+  const fragment = document.createDocumentFragment();
   const makeSelect = document.getElementById("make");
   const modelSelect = document.getElementById("model");
   const selectedMake = makeSelect.value;
 
-  // Initialize the selects and inputs with default values and states on page load
-  document.getElementById("productSearch").disabled = true;
-  document.getElementById("year").disabled = true;
+  appState.isModelSelected = false;
+  appState.isYearValid = false;
+  appState.errorMessage = "";
+
   document.getElementById("year").value = "";
-  document.getElementById("error").textContent = "";
   document.getElementById("dimensions").innerHTML =
     '<div class="dimensions-placeholder">Make Model cargo area = {"width":...,"height":...,"depth":...}</div>';
   modelSelect.innerHTML = '<option value="">Model</option>';
 
-  // Populate model select after make select
   if (selectedMake) {
     makes[selectedMake].forEach((model) => {
-      modelSelect.innerHTML += `<option value="${model}">${model}</option>`;
+      const option = document.createElement("option");
+      option.value = model;
+      option.textContent = model; 
+      fragment.appendChild(option);
     });
 
-    // Enable year input if there is a valid model value
+    modelSelect.appendChild(fragment);
+
     modelSelect.addEventListener("change", () => {
-      const yearInput = document.getElementById("year");
-      yearInput.disabled = modelSelect.value === "";
-      if (!yearInput.disabled) yearInput.value = "";
+      appState.isModelSelected = modelSelect.value !== "";
+      if (!appState.isModelSelected) {
+        document.getElementById("year").value = "";
+        appState.isYearValid = false;
+      }
+      renderUI(); 
     });
   }
+  
+  renderUI();
 };
 
 
@@ -112,6 +135,7 @@ const showError = (message) => {
   return `<div> <i class='box_error fas fa-exclamation-triangle'></i> Error: ${message}</div>`;
 };
 
+// -------------------- Validates selected year and displays cargo dimensions for the chosen car model.
 // -------------------- Validates selected year and displays cargo dimensions for the chosen car model.
 const updateDimensions = () => {
   const modelSelect = document.getElementById("model");
@@ -127,34 +151,35 @@ const updateDimensions = () => {
     dimensionsDiv.textContent = "";
     dimensionsDiv.innerHTML += showError("Please enter a valid 4-digit year");
 
-    yearInput.value = ""; // Clear the input field
-    yearInput.focus(); // Set focus back to the input field
-    document.getElementById("productSearch").disabled = true;
-    return; // Exit if invalid
+    yearInput.value = ""; 
+    yearInput.focus(); 
+    
+    // 🔄 STATE UPDATE: Instead of manually disabling the button, tell the state
+    appState.isYearValid = false;
+    renderUI();
+    return; 
   }
 
   const selectedYear = parseInt(selectedYearString); 
   dimensionsDiv.textContent = "";
 
-  document.getElementById("productSearch").disabled = true;
+  // 🔄 STATE UPDATE: Reset validity while we look for the car range
+  appState.isYearValid = false;
 
   if (selectedModel && selectedYear) {
     const modelDimensions = cargoDimensions[selectedModel];
     let makeModelFound = false;
 
     for (const range in modelDimensions) {
-
-      // Parses year range string into startYear and endYear, handling "current" year values.
       let [startYear, endYear] = range.split("-").map((year) => 
         year === "current" ? vehicleData.currentYear : parseInt(year)
       );
 
-      // If valid year, display cargo dimensions
       if (selectedYear >= startYear && selectedYear <= endYear) {
         const dimensions = modelDimensions[range];
 
         dimensionsDiv.innerHTML =
-        ` <div> <i class='box_success fas fa-check box_success fa-lg'></i> ${selectedMake} ${selectedModel}  cargo area = ${JSON.stringify(modelDimensions[range])}</div>`; // Display dimensions as JSON for clarity
+        ` <div> <i class='box_success fas fa-check box_success fa-lg'></i> ${selectedMake} ${selectedModel} cargo area = ${JSON.stringify(modelDimensions[range])}</div>`; 
 
         setCarDimensions(selectedMake, selectedModel, dimensions.height, dimensions.width, dimensions.depth);
 
@@ -163,14 +188,16 @@ const updateDimensions = () => {
       }
     }
 
-    // If year selected is not in a valid range of car data, show an error
     if (!makeModelFound) {
       dimensionsDiv.innerHTML += showError(" Selected year is out of range.");
-      document.getElementById("productSearch").disabled = true;
+      appState.isYearValid = false; // 🔄 STATE UPDATE
     } else {
-      document.getElementById("productSearch").disabled = false;
+      appState.isYearValid = true;  // 🔄 STATE UPDATE
     }
   }
+
+  // 🔄 RENDER: Sync everything up to the screen
+  renderUI();
 };
 
 // Populate makes on page load and call updateModels
@@ -315,7 +342,9 @@ const setCarDimensions = (make, model, height, width, depth) => {
 // -------------------- Add a product to the selected list with fit status, and include a button for removal
 const addProduct = (box) => {
   const selectedProducts = document.getElementById("selectedProducts");
-  const fitResult = checkFit(box); // returns fit status: fits, hangs out, does not fit
+  const fitResult = checkFit(box, carDimensions); // returns fit status: fits, hangs out, does not fit
+
+  carDimensions = fitResult.updatedCar; // save updated car dimensions after checking fit for the added product
   const item = document.createElement("li"); // Create User selected products
 
   // Build selected product html data element
@@ -352,7 +381,9 @@ document.getElementById("productSearch").addEventListener("input", (event) => {
 
 // -------------------- Check fit based on box orientation allowing product depth to hang out of cargo area 
 // Todo Revisit remaining volume calc to use hangingDepth
-const checkFit = (product) => {
+const checkFit = (product, currentCarDimensions) => {
+  const localCar = { ...currentCarDimensions };
+
   const orientations = [
     [product.height, product.width, product.depth],
     [product.height, product.depth, product.width],
@@ -367,22 +398,25 @@ const checkFit = (product) => {
     console.log(carDimensions.remainingHeight);
     console.log(carDimensions.remainingDepth);
 
-    if (h <= carDimensions.remainingHeight && w <= carDimensions.remainingWidth) {
-      if (d <= carDimensions.remainingDepth) {
-        // If it fits completely, update the remaining space
-        carDimensions.remainingHeight -= h;
-        carDimensions.remainingWidth -= w;
-        carDimensions.remainingDepth -= d;
-        return { status: "Fits", hangingDepth: 0 };
+    if (h <= localCar.remainingHeight && w <= localCar.remainingWidth) {
+      if (d <= localCar.remainingDepth) {
+
+        localCar.remainingHeight -= h;
+        localCar.remainingWidth -= w;
+        localCar.remainingDepth -= d;
+
+        return { status: "Fits", hangingDepth: 0, updatedCar: localCar };
+        
       } else {
         // If it hangs out, only update the height and width, and calculate hanging depth
-        carDimensions.remainingHeight -= h;
-        carDimensions.remainingWidth -= w;
-        const hangingDepth = d - carDimensions.remainingDepth;
-        return { status: "Hangs out", hangingDepth };
+        localCar.remainingHeight -= h;
+        localCar.remainingWidth -= w;
+        const hangingDepth = d - localCar.remainingDepth;
+        
+        return { status: "Hangs out", hangingDepth, updatedCar: localCar };
       }
     }
   }
 
-  return { status: "Doesn't fit", hangingDepth: null };
+  return { status: "Doesn't fit", hangingDepth: null, updatedCar: currentCarDimensions };
 };
