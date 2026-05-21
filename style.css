@@ -17,7 +17,7 @@
     --color-3: #E9E9E9;
     --color-4: #A0CABA;
 }
-/* 28A745 */
+
 /* Remove built-in form typography styles */
 input,
 button,
@@ -36,7 +36,6 @@ h5,
 h6 {
     overflow-wrap: break-word;
 }
-
 
 .fancy {
     @supports (background-clip: text) or (-webkit-background-clip: text) {
@@ -67,7 +66,7 @@ h6 {
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-style: normal;
-  }
+}
 
 .about {
     color: var(--secondary-color);
@@ -79,7 +78,7 @@ h6 {
     font-size: clamp(2.5rem, 7.5vw, 7.5rem);
     overflow-wrap: break-word;
     hyphens: auto;
-  }
+}
 
 body {
     background-color: var(--body-bg);
@@ -96,6 +95,7 @@ body {
 h1 {
     margin-bottom: 20px;
     margin-top: -20px;
+    font-size: 8vmin; /* 📱 From mobile view */
 }
 
 p {
@@ -119,8 +119,7 @@ p {
     transform: scale(1.05);
 }
 
-/*           inputs              */
-
+/* inputs              */
 input:disabled {
     background-color: #ccc;
     opacity: 0.5;
@@ -164,8 +163,7 @@ button {
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/*  container */
-
+/* container */
 .container {
     display: flex;
     flex-direction: column;
@@ -176,10 +174,11 @@ button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: absolute;
     z-index: 1;
-    width: 80%;
+    width: 100%; /* 📱 From mobile view (Full Width) */
+    max-width: 100%; /* 📱 From mobile view */
+    box-sizing: border-box; /* 📱 From mobile view */
     opacity: .98;
     border-radius: 0px 0px 20px 20px;
-
 }
 
 /* make the inputs and selects have a border */
@@ -193,7 +192,7 @@ button {
     outline: none;
     background-color: var(--input-bg);
     transition: border-color 0.3s, box-shadow 0.3s;
-    border: 1px solid #78c1b4; /* Add the border here */
+    border: 1px solid #78c1b4;
 }
 
 /* Content area  */
@@ -206,18 +205,15 @@ button {
     border: 6px solid #eef8f6;
     background-color: #eef8f6;
     border-radius: 15px 15px 15px 15px;
-
 }
 
 .fa-arrow-right {
-    transform: rotate(-25deg);
+    transform: rotate(90deg); /* 📱 From mobile view (Rotated down) */
 }
 
-
-
 .car-image {
-    max-width: 100%;  
-    height: 250px;  
+    max-width: 30%; /* 📱 From mobile view */
+    height: auto; /* 📱 From mobile view */
     display: block;  
     margin-left: auto;  
     margin-right: auto;  
@@ -225,7 +221,7 @@ button {
 }
 
 .box_success {
-color: var(--green);
+    color: var(--green);
 }
 
 .box_warning {
@@ -235,14 +231,15 @@ color: var(--green);
 .box_error {
     color: #C60610;
 }
+
 .hero-text-container {
     display: grid;
-    grid-template-columns: 1fr 2fr; 
+    grid-template-columns: 1fr; /* 📱 From mobile view */
     align-items: start; 
     gap: 20px; 
     border-radius: 5px;
-
-
+    text-align: center; /* 📱 From mobile view */
+    border: #28A745; /* 📱 From mobile view */
 }
 
 /* Add padding and margin adjustments for the paragraph and list */
@@ -252,11 +249,17 @@ color: var(--green);
     padding: 0; 
 }
 
+.hero-text-container p {
+    text-align: center; /* 📱 From mobile view */
+}
+
 /* Center the ul within its container while keeping the text left-aligned */
 .hero-text-container ul {
     list-style-type: none; 
     display: inline-block; 
-    text-align: left; 
+    text-align: left; /* 📱 From mobile view */
+    margin: 0 auto; /* 📱 From mobile view */
+    max-width: 90%; /* 📱 From mobile view */
 }
 
 .hero-text-container li {
@@ -267,11 +270,10 @@ color: var(--green);
 
 .left-column,
 .right-column {
-    width: 48%;
+    width: 100%; /* 📱 From mobile view (Full width stacking) */
 }
 
 /* vehicle */
-
 .vehicle-selector {
     display: flex;
     justify-content: space-between;
@@ -290,8 +292,8 @@ color: var(--green);
 .dimensions {
     border-radius: 5px;
     padding: 10px;
-    
 }
+
 .dimensions-placeholder {
     color: rgba(0, 0, 0, 0.3)
 }
@@ -304,7 +306,6 @@ color: var(--green);
 }
 
 /* search */
-
 .search-results {
     position: absolute;
     border-radius: 1px;
@@ -335,7 +336,6 @@ color: var(--green);
 }
 
 .search-results div:hover {
-    /* border: 1px solid var(--border-color); */
     background-color: rgba(160, 229, 216, 1);
     color: black;
 }
@@ -375,88 +375,46 @@ color: var(--green);
     transform: scale(1.05);
 }
 
-
 /* prepend fit status for products*/
 .product-search-item.fits:before {
     font-family: FontAwesome;
-    font-size:x-large;
+    font-size: x-large;
     content: "\f00c"; 
     color: var(--green);
-  }
+}
   
-  /* warning f071 */
-  .product-search-item.HangsOut:before {
+.product-search-item.HangsOut:before {
     font-family: FontAwesome;
-    font-size:x-large;
+    font-size: x-large;
     content: "\f071";
     color: #C88139;
-  }
+}
   
-  /* error circle f06a */
-  .product-search-item.noFit:before {
+.product-search-item.noFit:before {
     font-family: FontAwesome;
-    font-size:x-large;
+    font-size: x-large;
     content: "\f06a"; 
     color: #C60610;
-  }
-
-/* responsive */
-
-@media (max-width: 768px) {
-    .container {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    h1 {
-        font-size: 8vmin;
-    }
-
-    .car-image {
-        max-width: 30%;
-        height: auto;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .fa-arrow-right {
-        transform: rotate(90deg); 
-    }
-
-    .left-column,
-    .right-column {
-        width: 100%;
-    }
-
-    .hero-text-container {
-        grid-template-columns: 1fr; 
-        text-align: center; 
-        border: #28A745;
-        
-    }
-
-    .hero-text-container p {
-        text-align: center;
-    }
-
-    .hero-text-container ul {
-        text-align: left; 
-        margin: 0 auto;
-        max-width: 90%; 
-    }
 }
 
 .removeButton {
     display: flex;
-  justify-content: center; 
-  align-items: center;
+    justify-content: center; 
+    align-items: center;
     width: 4vh;
     height: 4vh;
     cursor: pointer;
-
 }
 
 .removeButton i {
     font-size: 14px;
-  }
+}
+
+/* Caps the width on massive desktop screens without altering position or alignment */
+@media (min-width: 1900px) {
+    .container {
+        max-width: 1900px; /* Locks expansion at the 1900px threshold */
+        left: 50%;
+        transform: translateX(-50%); /* Centers the absolute container container horizontally */
+    }
+}
