@@ -1,0 +1,162 @@
+[
+  {
+    "timestamp": "2026-08-01T00:00:00Z",
+    "distance_from_earth_au": 143.78,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.71,
+    "rtg_watts": 238.5,
+    "solar_wind_speed_km_s": 412.5
+  },
+  {
+    "timestamp": "2026-08-02T00:00:00Z",
+    "distance_from_earth_au": 143.79,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.70,
+    "rtg_watts": 238.5,
+    "solar_wind_speed_km_s": 410.2
+  },
+  {
+    "timestamp": "2026-08-03T00:00:00Z",
+    "distance_from_earth_au": 143.79,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.69,
+    "rtg_watts": 238.4,
+    "solar_wind_speed_km_s": 415.8
+  },
+  {
+    "timestamp": "2026-08-04T00:00:00Z",
+    "distance_from_earth_au": 143.80,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.68,
+    "rtg_watts": 238.4,
+    "solar_wind_speed_km_s": 408.1
+  },
+  {
+    "timestamp": "2026-08-05T00:00:00Z",
+    "distance_from_earth_au": 143.80,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.68,
+    "rtg_watts": 238.4,
+    "solar_wind_speed_km_s": 411.9
+  },
+  {
+    "timestamp": "2026-08-06T00:00:00Z",
+    "distance_from_earth_au": 143.81,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.67,
+    "rtg_watts": 238.4,
+    "solar_wind_speed_km_s": 413.4
+  },
+  {
+    "timestamp": "2026-08-07T00:00:00Z",
+    "distance_from_earth_au": 143.81,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.66,
+    "rtg_watts": 238.4,
+    "solar_wind_speed_km_s": 409.7
+  },
+  {
+    "timestamp": "2026-08-08T00:00:00Z",
+    "distance_from_earth_au": 143.82,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.65,
+    "rtg_watts": 238.4,
+    "solar_wind_speed_km_s": 407.5
+  },
+  {
+    "timestamp": "2026-08-09T00:00:00Z",
+    "distance_from_earth_au": 143.82,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.65,
+    "rtg_watts": 238.3,
+    "solar_wind_speed_km_s": 414.1
+  },
+  {
+    "timestamp": "2026-08-10T00:00:00Z",
+    "distance_from_earth_au": 143.83,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.64,
+    "rtg_watts": 238.3,
+    "solar_wind_speed_km_s": 412.0
+  },
+  {
+    "timestamp": "2026-08-11T00:00:00Z",
+    "distance_from_earth_au": 143.83,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.63,
+    "rtg_watts": 238.3,
+    "solar_wind_speed_km_s": 410.8
+  },
+  {
+    "timestamp": "2026-08-12T00:00:00Z",
+    "distance_from_earth_au": 143.84,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.62,
+    "rtg_watts": 238.3,
+    "solar_wind_speed_km_s": 406.9
+  },
+  {
+    "timestamp": "2026-08-13T00:00:00Z",
+    "distance_from_earth_au": 143.84,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.62,
+    "rtg_watts": 238.3,
+    "solar_wind_speed_km_s": 411.2
+  },
+  {
+    "timestamp": "2026-08-14T00:00:00Z",
+    "distance_from_earth_au": 143.85,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.61,
+    "rtg_watts": 238.2,
+    "solar_wind_speed_km_s": 413.5
+  },
+  {
+    "timestamp": "2026-08-15T00:00:00Z",
+    "distance_from_earth_au": 143.85,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.60,
+    "rtg_watts": 238.2,
+    "solar_wind_speed_km_s": 408.4
+  },
+  {
+    "timestamp": "2026-08-16T00:00:00Z",
+    "distance_from_earth_au": 143.86,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.59,
+    "rtg_watts": 238.2,
+    "solar_wind_speed_km_s": 409.1
+  },
+  {
+    "timestamp": "2026-08-17T00:00:00Z",
+    "distance_from_earth_au": 143.86,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.59,
+    "rtg_watts": 238.2,
+    "solar_wind_speed_km_s": 412.6
+  },
+  {
+    "timestamp": "2026-08-18T00:00:00Z",
+    "distance_from_earth_au": 143.87,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.58,
+    "rtg_watts": 238.1,
+    "solar_wind_speed_km_s": 414.0
+  },
+  {
+    "timestamp": "2026-08-19T00:00:00Z",
+    "distance_from_earth_au": 143.87,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.57,
+    "rtg_watts": 238.1,
+    "solar_wind_speed_km_s": 407.8
+  },
+  {
+    "timestamp": "2026-08-20T00:00:00Z",
+    "distance_from_earth_au": 143.88,
+    "velocity_km_s": 15.34,
+    "hydrazine_kg": 24.56,
+    "rtg_watts": 238.1,
+    "solar_wind_speed_km_s": 410.3
+  }
+]
